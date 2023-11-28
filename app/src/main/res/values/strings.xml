@@ -107,6 +107,10 @@
     <string name="curjoinBtn">войти</string>
 
 
+    <string name="numberofpeople1">Перед тобой %1$d человек</string>
+
+    <string name="timeofpeople1">Осталось примерно 35 минут</string>
+
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
