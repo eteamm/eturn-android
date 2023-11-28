@@ -43,6 +43,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 //    implementation("org.testng:testng:6.9.6")
     implementation("com.google.code.gson:gson:2.8.6")
+
+    implementation("com.squareup.okhttp3:okhttp:4.0.0")
 //    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")

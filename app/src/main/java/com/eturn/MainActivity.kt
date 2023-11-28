@@ -11,13 +11,21 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.eturn.R
 import com.eturn.adapter.TurnAdapter
 import com.eturn.data.Turn
+import com.eturn.requests.ExampleTry
 import com.google.gson.Gson
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +33,35 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val ex = ExampleTry()
+        ex.run()
+
+//        val url = "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json"
+//        val request: Request = Request.Builder()
+//            .url(url)
+//            .build()
+
+//        OkHttpClient().newCall(request)
+//            .enqueue(object : Callback {
+//
+//                override fun onFailure(call: Call, e: IOException) {
+//                    val text = "Нихуя"
+//                    val duration = Toast.LENGTH_SHORT
+//
+//                    val toast = Toast.makeText(applicationContext, text, duration)
+//                    toast.show()
+//                }
+//
+//                override fun onResponse(call: Call, response: Response) {
+//                    val text = "РАБОТАЕТ СУКА, РАБОТАЕТ!"
+//                    val duration = Toast.LENGTH_SHORT
+//
+//                    val toast = Toast.makeText(applicationContext, text, duration)
+//                    toast.show()
+//                }
+//            })
+
 
         val myJson = """
         [ 
