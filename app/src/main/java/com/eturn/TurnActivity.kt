@@ -1,4 +1,4 @@
-package com.example.mainlist
+package com.eturn
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -13,8 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.adapter.PositionsAdapter
-import com.example.mainlist.data.Positions
+import com.eturn.R
+import com.eturn.adapter.PositionsAdapter
+import com.eturn.data.Positions
 import com.google.gson.Gson
 import java.util.*
 
@@ -302,7 +303,7 @@ class TurnActivity : AppCompatActivity() {
         }
         val cancelButton : Button = findViewById(R.id.exitTurnBtn)
         cancelButton.setOnClickListener(){
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

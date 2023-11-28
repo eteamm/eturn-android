@@ -1,4 +1,4 @@
-package com.example.mainlist
+package com.eturn
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.adapter.MemberAdapter
-import com.example.mainlist.adapter.MemberAdapter2
-import com.example.mainlist.adapter.MyFragment
-import com.example.mainlist.data.Member
+import com.eturn.R
+import com.eturn.adapter.MemberAdapter
+import com.eturn.adapter.MemberAdapter2
+import com.eturn.data.Member
 import com.google.gson.Gson
 
 class MembersActivity : AppCompatActivity() {

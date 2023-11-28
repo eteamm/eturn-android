@@ -1,4 +1,4 @@
-package com.example.mainlist
+package com.eturn
 
 import android.content.Context
 import android.content.Intent
@@ -14,9 +14,9 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.adapter.TurnAdapter
-import com.example.mainlist.data.AllowGroup
-import com.example.mainlist.data.Turn
+import com.eturn.R
+import com.eturn.adapter.TurnAdapter
+import com.eturn.data.Turn
 import com.google.gson.Gson
 
 

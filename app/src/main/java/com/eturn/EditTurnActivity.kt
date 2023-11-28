@@ -1,4 +1,4 @@
-package com.example.mainlist
+package com.eturn
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.text.TextUtils.substring
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
@@ -16,8 +15,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.adapter.AllowGroupAdapter
-import com.example.mainlist.data.AllowGroup
+import com.eturn.R
+import com.eturn.adapter.AllowGroupAdapter
+import com.eturn.data.AllowGroup
 
 
 class EditTurnActivity : AppCompatActivity() {

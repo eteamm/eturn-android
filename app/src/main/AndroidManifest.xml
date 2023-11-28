@@ -13,25 +13,25 @@
         android:theme="@style/Theme.MainList"
         tools:targetApi="31">
         <activity
-            android:name=".TurnActivity"
+            android:name="com.eturn.TurnActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateTurnActivity"
+            android:name="com.eturn.CreateTurnActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.eturn.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".EditTurnActivity"
+            android:name="com.eturn.EditTurnActivity"
             android:exported="false" />
         <activity
-            android:name=".MembersActivity"
+            android:name="com.eturn.MembersActivity"
             android:exported="false" />
         <activity
-            android:name=".ChooseTurnActivity"
+            android:name="com.eturn.ChooseTurnActivity"
             android:exported="false" />
         <activity
-            android:name=".StartActivity"
+            android:name="com.eturn.StartActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>

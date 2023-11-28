@@ -1,16 +1,15 @@
-package com.example.mainlist.adapter
+package com.eturn.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.R
-import com.example.mainlist.data.Member
+import com.eturn.R
+import com.eturn.data.Member
 
 
 public class MemberAdapter(private val context: Context) : RecyclerView.Adapter<MemberAdapter.MemberHolder>()  {

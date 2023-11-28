@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mainlist"
+    namespace = "com.eturn"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.mainlist"
+        applicationId = "com.eturn"
         minSdk = 28
         targetSdk = 33
         versionCode = 1

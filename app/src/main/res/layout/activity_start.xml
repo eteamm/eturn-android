@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:paddingLeft="53dp"
     android:paddingRight="53dp"
-    tools:context=".StartActivity">
+    tools:context="com.eturn.StartActivity">
 
     <ImageView
         android:id="@+id/imageView4"

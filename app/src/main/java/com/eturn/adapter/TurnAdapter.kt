@@ -1,4 +1,4 @@
-package com.example.mainlist.adapter
+package com.eturn.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,9 +10,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.R
-import com.example.mainlist.TurnActivity
-import com.example.mainlist.data.Turn
+import com.eturn.R
+import com.eturn.TurnActivity
+import com.eturn.data.Turn
 
 
 public class TurnAdapter(private val context: Context, private val id_user : Int) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {

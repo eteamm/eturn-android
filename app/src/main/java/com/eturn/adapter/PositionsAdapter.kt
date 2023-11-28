@@ -1,4 +1,4 @@
-package com.example.mainlist.adapter
+package com.eturn.adapter
 
 
 import android.content.Context
@@ -9,8 +9,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.R
-import com.example.mainlist.data.Positions
+import com.eturn.R
+import com.eturn.data.Positions
 
 
 public class PositionsAdapter(private val context: Context, val admin : Int) : RecyclerView.Adapter<PositionsAdapter.HolderPositions>() {

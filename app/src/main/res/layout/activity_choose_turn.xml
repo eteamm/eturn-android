@@ -10,7 +10,7 @@
     android:paddingTop="30dp"
     android:paddingRight="25dp"
     android:paddingBottom="10dp"
-    tools:context=".ChooseTurnActivity">
+    tools:context="com.eturn.ChooseTurnActivity">
 
     <TextView
         android:id="@+id/choiceTurntxt"

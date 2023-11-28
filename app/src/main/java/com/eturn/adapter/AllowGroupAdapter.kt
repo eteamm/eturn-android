@@ -1,4 +1,4 @@
-package com.example.mainlist.adapter
+package com.eturn.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainlist.R
-import com.example.mainlist.data.AllowGroup
-import com.example.mainlist.data.Positions
+import com.eturn.R
+import com.eturn.data.AllowGroup
 
 class AllowGroupAdapter(private val context: Context) : RecyclerView.Adapter<AllowGroupAdapter.allowGroupHolder>(){
     private var allowGroupList = ArrayList<AllowGroup>()
