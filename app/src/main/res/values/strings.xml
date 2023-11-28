@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">Eturn</string>
+    <string name="MainMain">Главная</string>
+    <string name="MainMainDesc">список очередей</string>
+    <string name="StatusMain">статус</string>
+    <string name="GroupMain">группа</string>
+    <string name="ButtonExitTextMain">выйти</string>
+    <string name="ButtonMyTextMain">МОИ</string>
+    <string name="ButtonInDostupTextMain">ДОСТУПНЫЕ</string>
+    <string name="ButtonCreateTurnTextMain">cоздать очередь</string>
+    <string name="EtuIdMain">ETU ID</string>
+    <string name="FirstTaskEntry">Авторизируйся через ETU ID</string>
+    <string name="SecondTaskEntry">Выбери или создай список</string>
+    <string name="ThirdTaskEntry">Жди своей очереди!</string>
+    <string name="ThreeStepsEntry">Всего три простых шага!</string>
+
+    <string name="choiceTurn">ВЫБЕРИТЕ ТИП ОЧЕРЕДИ</string>
+    <string name="teachturn">УЧЕБНАЯ</string>
+    <string name="teachturndesc">Создается для ограниченного числа студентов</string>
+
+    <string name="orgturn">ОРГАНИЗАЦИОННАЯ</string>
+    <string name="orgturndesc">Создается для неограниченного количества различных лиц</string>
+
+    <string name="EditingQueue">Редактировать</string>
+    <string name="EditingQueueDesc">изменить параметры</string>
+    <string name="editing1">название очереди</string>
+    <string name="editing1Hint">Очередь в деканат</string>
+    <string name="editing2">описание очереди</string>
+    <string name="editing2Hint">Очередь в деканат длинной 100м</string>
+    <string name="editing3">участники</string>
+    <string name="editing4">группы</string>
+    <string name="editing4Hint">Введите допустимые группы</string>
+    <string name="saveButton">сохранить</string>
+    <string name="cancelButton">отмена</string>
+    <string name="noGroups">Вы удалили все допустимые группы. Все участники, состоящие в этих группах, будут удалены из очереди. Вы сможете добавить
+        новых пользователей через ссылку, или указав другие группы.</string>
+    <string name="noName">Нельзя сохранить очередь, пока поле пустое.</string>
+
+    <string name="ListOfParticipants">Участники</string>
+    <string name="ListOfParticipantsDesc">изменение прав</string>
+    <string name="TitileListOfParticipants">Зачётная неделя</string>
+    <string name="AdminsText">АДМИНИСТРАТОРЫ</string>
+    <string name="StudentsText">УЧАСТНИКИ</string>
+    <string name="AdminsQuantity">%1$d администратора</string>
+    <string name="StudentsQuantity">%1$d участника</string>
+    <string name="search">введите нужное имя...</string>
+
+    <string name="mainTextTurn">Очередь</string>
+    <string name="justId">#1</string>
+    <string name="mainTextTurnDesc">основная информация</string>
+    <string name="nameTurnTurn">Зачетная неделя</string>
+    <string name="nameTeacherTurn">Имя преподавателя</string>
+    <string name="numberPeopleTurn">132</string>
+    <string name="peopleBoxTurn">человека</string>
+    <string name="descriptionBoxTurn">Описание отстутствует.</string>
+    <string name="descriptionBoxTurnCurrent">Подробнее: %1$s</string>
+    <string name="turnBtnTextTurn">участники</string>
+    <string name="exitBtnTextTurn">выйти</string>
+    <string name="joinBtnTextTurn">встать в очередь</string>
+    <string name="countPlacesTurn">145 позиций</string>
+    <string name="hintToPositionTurn">До твоей ближайшей очереди %1$d %2$s</string>
+    <string name="hintToPositionTurn1">Сейчас твоя очередь. Не забудь выйти!</string>
+    <string name="hintToPositionTurn2">Ты еще не встал в очередь</string>
+    <string name="inviteTurn">поделиться</string>
+    <string name="deleteTurn">удалить очередь</string>
+
+    <string name="mainTextCreate">Создать</string>
+    <string name="mainTextCreatedesc">новая очередь</string>
+    <string name="nameTurnCreate">название очереди</string>
+    <string name="descriptionTurnCreate">описание очереди</string>
+    <string name="descriptionTurnCreate1">Описание очереди</string>
+    <string name="groupsCreate">допустимые группы</string>
+    <string name="createBtnCreate">создать</string>
+    <string name="cancelBtnCreate">отмена</string>
+    <string name="warningTxtTurn">Вы уже вставали в очередь недавно. Через %1$d позиций вы сможете сделать это снова!</string>
+    <string name="ExitTxtTurn">Вы уверены, что хотите выйти из этой очереди?</string>
+
+    <string name="DurationTxt">Предположительная длительность %1$d позиций</string>
+    <string name="DurationTimeTxt">14 часов 32 минуты</string>
+
+    <string name="yourTurntxt">ТВОЙ ЧЕРЕД</string>
+    <string name="Turntxt">ВСЯ ОЧЕРЕДЬ</string>
+
+    <string name="warningCreateTurn">Нельзя создать очередь, пока поле пустое</string>
+    <string name="warningCreateTurn2">Недопустимый номер группы. Номер должен содержать 4 цифры.</string>
+    <string name="go">вперёд</string>
+    <string name="etuid">ВЫЙТИ</string>
+    <string name="nametxt">имя пользователя</string>
+    <string name="nametxtex">Иванов Иван Иванович</string>
+    <string name="createbuttonturn">СОЗДАТЬ ОЧЕРЕДЬ</string>
+    <string name="turnInfoName">Название очереди</string>
+    <string name="turnInfoDesc">Подробнее: описание очереди</string>
+    <string name="turnInfoAuthor">Автор очереди</string>
+    <string name="turnInfoSize">0 человек</string>
+    <string name="turnInfoJoin">вступить</string>
+    <string name="turnInfoNumber">2391</string>
+    <string name="positionName">Имя Фамилия Отчество</string>
+    <string name="positionNumber">2391</string>
+
+    <string name="RateTurn">Частота вступления в очередь</string>
+    <string name="RateTurnHint">По умолчанию автоматически</string>
+    <string name="SettingsTurn">Параметры доступа</string>
+
+
+    <string name="curNameTxt">Глоба Валерия Владимировна</string>
+
+    <string name="curjoinBtn">войти</string>
+
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="status">студент</string>
+    <string name="groupNumber">2391</string>
+    <string name="nameTurn">Название очереди</string>
+    <string name="allowgroupsTurn">Введите допустимые группы</string>
+
+    <string-array name="ParametersforTurn">
+        <item>Для всех студентов</item>
+        <item>Для сотрудников</item>
+        <item>Для преподавателей</item>
+        <item>Для людей не из университета</item>
+        <item>Для допустимых групп</item>
+        <item>По ссылке-приглашению</item>
+    </string-array>
+
+    <string name="memberName">Ненарокова Маргарита Олеговна</string>
+    <string name="memberAct1">Разжаловать</string>
+    <string name="memberAct1.1">Сделать администратором</string>
+    <string name="memberAct2">Удалить из очереди</string>
+
+    <string name="warningText1">Недопустимый номер группы.</string>
+    <string name="warningText2">Вы удалили группу или группы из списка допустимых. Все участники, состоящие в этих группах, будут удалены из очереди.</string>
+</resources>

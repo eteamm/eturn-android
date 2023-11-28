@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".CreateTurnActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="25dp"
+                android:paddingTop="30dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="120dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exobold"
+                        android:text="@string/mainTextCreate"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/mainTextCreatedesc"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/nameTurnCreatetxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/nameTurnCreate"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorBlock"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp">
+
+                    <EditText
+                        android:id="@+id/NameTurn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/exoregular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/nameTurn"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/colorTextSecond"
+                        android:textColorHint="@color/notImportant"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingLeft="30dp"
+                    android:text="@string/warningCreateTurn"
+                    android:textColor="@color/warningText"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/descriptionBoxCreatetxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/descriptionTurnCreate"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorBlock"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp">
+
+                    <EditText
+                        android:id="@+id/SettingsTurn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/exoregular"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/descriptionTurnCreate1"
+                        android:inputType="text|textMultiLine"
+                        android:maxHeight="200dp"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/colorTextSecond"
+                        android:textColorHint="@color/notImportant"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/RateJoinTurntxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/RateTurn"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/colorBlock"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp">
+
+                    <EditText
+                        android:id="@+id/RateTurn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/exoregular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/RateTurnHint"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/colorTextSecond"
+                        android:textColorHint="@color/notImportant"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/settingsTurntxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/SettingsTurn"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/colorBlock"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/colorTextSecond"
+                        android:contextClickable="false"
+                        android:entries="@array/ParametersforTurn"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/groupstxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/groupsCreate"
+                    android:textColor="@color/colorTextSecond"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorBlock"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp">
+
+                    <EditText
+                        android:id="@+id/createAllowGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/exoregular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/allowgroupsTurn"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/colorTextSecond"
+                        android:textColorHint="@color/notImportant"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/deleteOneGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exoregular"
+                    android:paddingLeft="30dp"
+                    android:text="@string/warningText1"
+                    android:textColor="@color/warningText"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/allowRec"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="20dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient_background"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/createBtnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorMain"
+            android:fontFamily="@font/exosemibold"
+            android:text="@string/createBtnCreate"
+            android:textColor="@color/colorText"
+            android:textColorHighlight="@color/colorMain"
+            android:textSize="16sp"
+            app:rippleColor="@color/colorMain" />
+
+        <Button
+            android:id="@+id/backBtnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00E9EFF2"
+            android:backgroundTint="@color/background"
+            android:fontFamily="@font/exosemibold"
+            android:onClick="ExitfromCreateTurn"
+            android:text="@string/cancelBtnCreate"
+            android:textColor="@color/colorMain"
+            android:textColorHighlight="@color/colorMain"
+            android:textSize="16sp"
+            app:rippleColor="@color/colorMain" />
+
+    </LinearLayout>
+
+</RelativeLayout>
