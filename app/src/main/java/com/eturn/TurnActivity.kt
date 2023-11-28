@@ -311,6 +311,7 @@ class TurnActivity : AppCompatActivity() {
         val exitcurTurn : ImageView = findViewById(R.id.delBtn)
         val curPeoplebox : CardView = findViewById(R.id.curBox)
         val curjoinBtn : Button = findViewById(R.id.curJoinBtn)
+        val yourTurn : TextView = findViewById(R.id.yourTurnTxt)
         var ispressed = false
         curjoinBtn.setOnClickListener(){
             if(!ispressed){
@@ -320,6 +321,7 @@ class TurnActivity : AppCompatActivity() {
             }
             else {
                 curPeoplebox.visibility = View.GONE
+                yourTurn.visibility = View.GONE
             }
 
         }
