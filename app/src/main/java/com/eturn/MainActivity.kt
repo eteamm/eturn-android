@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ex = ExampleTry()
-        ex.run()
+//        val ex = ExampleTry()
+//        ex.run()
 
 //        val url = "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json"
 //        val request: Request = Request.Builder()

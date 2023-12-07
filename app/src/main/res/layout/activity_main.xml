@@ -229,22 +229,47 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="51dp"
-                                android:orientation="horizontal">
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="10dp">
 
-                                <Button
-                                    android:id="@+id/bStud"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="УЧЕБНЫЕ" />
+                                    android:padding="0dp">
 
-                                <Button
-                                    android:id="@+id/bOrg"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="ОРГАНИЗАЦИОННЫЕ" />
+                                    <View
+                                        android:id="@+id/view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/button_left_clicked" />
+
+                                    <Button
+                                        android:id="@+id/bStud"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="0dp"
+                                        android:background="@android:color/transparent"
+                                        android:text="УЧЕБНЫЕ"
+                                        android:textColor="@color/background"
+                                        app:cornerRadius="0dp"
+                                        app:iconPadding="0dp" />
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                    <Button
+                                        android:id="@+id/bOrg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/transparent"
+                                        android:text="ОРГАНИЗАЦИОННЫЕ" />
+                                </FrameLayout>
+
                             </LinearLayout>
                         </LinearLayout>
 
@@ -262,6 +287,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@android:color/transparent"
                             android:backgroundTint="@null"
                             android:fontFamily="@font/exosemibold"
                             android:text="@string/ButtonMyTextMain"
@@ -276,6 +302,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@android:color/transparent"
                             android:backgroundTint="@null"
                             android:backgroundTintMode="add"
                             android:fontFamily="@font/exosemibold"
