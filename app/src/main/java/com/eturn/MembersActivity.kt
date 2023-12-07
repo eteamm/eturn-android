@@ -33,8 +33,8 @@ class MembersActivity : AppCompatActivity() {
         val recyclerUsers: RecyclerView = findViewById(R.id.UsersRec)
         recyclerAdmins.layoutManager = LinearLayoutManager(this)
         recyclerUsers.layoutManager = LinearLayoutManager(this)
-        val AdminsAdapter = MemberAdapter(this)
-        val UsersAdapter = MemberAdapter2(this)
+        val AdminsAdapter = MemberAdapter(this,1)
+        val UsersAdapter = MemberAdapter(this,2)
 
         recyclerAdmins.adapter = AdminsAdapter
         recyclerUsers.adapter = UsersAdapter

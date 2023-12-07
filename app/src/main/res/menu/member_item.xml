@@ -2,13 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:itemTextColor="@color/colorTextSecond">
+
     <item
         android:id="@+id/rename"
-        android:title="@string/memberAct1"
-        android:icon="@drawable/rename"
-        app:showAsAction="never"
-        app:itemTextColor="@color/colorTextSecond"/>
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/memberAct1" />
     <item
         android:id="@+id/delete"
         android:title="@string/memberAct2"

@@ -12,20 +12,34 @@ import com.eturn.R
 import com.eturn.data.Member
 
 
-public class MemberAdapter(private val context: Context) : RecyclerView.Adapter<MemberAdapter.MemberHolder>()  {
+public class MemberAdapter(private val context: Context, private val type: Int) : RecyclerView.Adapter<MemberAdapter.MemberHolder>()  {
 
     private var memberList = ArrayList<Member>();
 
     class MemberHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val memberNameTextView: TextView = itemView.findViewById(R.id.memberNameTxt)
         val imageContextMenuButton: ImageButton = itemView.findViewById(R.id.pointsMember)
-        fun getMenu(context: Context) {
-            val popupMenu = PopupMenu(context, imageContextMenuButton)
-            popupMenu.inflate(R.menu.member_item)
-            imageContextMenuButton.setOnClickListener {
-                popupMenu.show()
-            }
-        }
+        val popupMenu = PopupMenu(itemView.context, imageContextMenuButton)
+//        fun getMenu(context: Context, i: Int) {
+//            val popupMenu = PopupMenu(context, imageContextMenuButton)
+//            popupMenu.inflate(R.menu.member_item)
+//            var action = 0
+//            imageContextMenuButton.setOnClickListener {
+//                popupMenu.show()
+//                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+//                    when (item.itemId) {
+//                        R.id.rename -> {
+//
+//
+//                        }
+//                        R.id.delete ->{
+//                            action = 2
+//                        }
+//                    }
+//                    true
+//                })
+//            }
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberHolder {
@@ -40,7 +54,33 @@ public class MemberAdapter(private val context: Context) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: MemberHolder, position: Int) {
         val member : Member = memberList[position] //заполнение данных в эл списка
-        holder.getMenu(context)
+        if (type==1){
+            holder.popupMenu.inflate(R.menu.member_item)
+        }
+        else {
+            holder.popupMenu.inflate(R.menu.member_item_2)
+        }
+        holder.imageContextMenuButton.setOnClickListener {
+            holder.popupMenu.show()
+            holder.popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.rename -> {
+                        memberList.removeAt(position)
+                        notifyDataSetChanged()
+                    }
+                    R.id.delete ->{
+                        memberList.removeAt(position)
+                        notifyDataSetChanged()
+                    }
+                    R.id.createUserMenuItem -> {
+                        memberList.removeAt(position)
+                        notifyDataSetChanged()
+                    }
+                }
+                true
+            })
+        }
+//        holder.getMenu(context, position)
 //        val popupMenu = androidx.appcompat.widget.PopupMenu(context, holder.imageView)
         holder.memberNameTextView.text = member.Name
 //        val button = holder.imageContextMenuButton
