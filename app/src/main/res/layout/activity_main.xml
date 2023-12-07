@@ -253,6 +253,7 @@
                                         android:background="@android:color/transparent"
                                         android:text="УЧЕБНЫЕ"
                                         android:textColor="@color/background"
+                                        android:textSize="12sp"
                                         app:cornerRadius="0dp"
                                         app:iconPadding="0dp" />
                                 </FrameLayout>
@@ -262,12 +263,20 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1">
 
+                                    <View
+                                        android:id="@+id/view2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/button_right_noclicked" />
+
                                     <Button
                                         android:id="@+id/bOrg"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@android:color/transparent"
-                                        android:text="ОРГАНИЗАЦИОННЫЕ" />
+                                        android:text="ОРГАНИЗАЦИОННЫЕ"
+                                        android:textColor="@color/colorMain"
+                                        android:textSize="12sp" />
                                 </FrameLayout>
 
                             </LinearLayout>
@@ -282,37 +291,63 @@
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp">
 
-                        <Button
-                            android:id="@+id/bMy"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:backgroundTint="@null"
-                            android:fontFamily="@font/exosemibold"
-                            android:text="@string/ButtonMyTextMain"
-                            android:textColor="@color/colorMain"
-                            android:textColorHighlight="@color/colorMain"
-                            android:textColorHint="@color/colorMain"
-                            android:textColorLink="@color/colorMain"
-                            app:rippleColor="@color/onButton" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                        <Button
-                            android:id="@+id/MainScreenInDostupBtn"
+                            <View
+                                android:id="@+id/view3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_left_noclicked" />
+
+                            <Button
+                                android:id="@+id/bMy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@null"
+                                android:fontFamily="@font/exosemibold"
+                                android:text="@string/ButtonMyTextMain"
+                                android:textColor="@color/colorMain"
+                                android:textColorHighlight="@color/colorMain"
+                                android:textColorHint="@color/colorMain"
+                                android:textColorLink="@color/colorMain"
+                                app:rippleColor="@color/onButton" />
+                        </FrameLayout>
+
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:backgroundTint="@null"
-                            android:backgroundTintMode="add"
-                            android:fontFamily="@font/exosemibold"
-                            android:text="@string/ButtonInDostupTextMain"
-                            android:textAllCaps="false"
-                            android:textColor="@color/onButton"
-                            android:textColorHighlight="@color/colorMain"
-                            android:textColorHint="@color/colorMain"
-                            android:textColorLink="@color/colorMain"
-                            app:rippleColor="@color/onButton" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <View
+                                android:id="@+id/view4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_right_noclicked" />
+
+                            <Button
+                                android:id="@+id/MainScreenInDostupBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@null"
+                                android:backgroundTintMode="add"
+                                android:fontFamily="@font/exosemibold"
+                                android:text="@string/ButtonInDostupTextMain"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorMain"
+                                android:textColorHighlight="@color/colorMain"
+                                android:textColorHint="@color/colorMain"
+                                android:textColorLink="@color/colorMain"
+                                app:rippleColor="@color/onButton" />
+
+                        </FrameLayout>
+
                     </LinearLayout>
 
                     <EditText
@@ -357,7 +392,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorMain"
             android:fontFamily="@font/exosemibold"
-            android:onClick="CreateTurn"
             android:text="@string/ButtonCreateTurnTextMain"
             android:textColor="@color/colorText"
             android:textColorHighlight="@color/onButton"

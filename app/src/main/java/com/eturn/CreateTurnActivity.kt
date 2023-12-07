@@ -121,8 +121,7 @@ class CreateTurnActivity : AppCompatActivity() {
                         } else {
                             vibrator.vibrate(200)
                         }
-//                        allowEdit.requestFocus()
-//                        allowEdit.isCursorVisible = true
+
 
                     }
                     allowEdit.setText("")

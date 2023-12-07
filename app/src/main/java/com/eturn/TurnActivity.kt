@@ -8,16 +8,18 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.eturn.R
 import com.eturn.adapter.PositionsAdapter
 import com.eturn.data.Positions
+import com.eturn.data.YourPosition
 import com.google.gson.Gson
 import java.util.*
+
 
 class TurnActivity : AppCompatActivity() {
 
@@ -102,9 +104,22 @@ class TurnActivity : AppCompatActivity() {
         }]
         """.trimIndent()
 
+        val jsontemp = """
+        {
+            idPos: 1,
+            isFirst: false,
+            name: "Иванов Юрий Владимирович",
+            groupNumber: "2391",
+            number: 1,
+            isGo: false
+        }
+        """.trimIndent()
 
 
         val Pencil: ImageView = findViewById(R.id.editTurnImg)
+        var gsonYourPos = Gson()
+        var yourPos = gsonYourPos?.fromJson(jsontemp, YourPosition::class.java)
+
 
 
         val People: Array<String> = arrayOf(
@@ -124,20 +139,17 @@ class TurnActivity : AppCompatActivity() {
         val myTurnDescription: TextView = findViewById(R.id.descriptionBoxtxt)
         val myTurnNumberOfPeople: TextView = findViewById(R.id.numberPeopletxt)
         val myTurnPeopleTextView: TextView = findViewById(R.id.peopleBoxtxt)
-        //val numberToGoTextView: TextView = findViewById(R.id.hintToPositiontxt)
-
-//        val createPosition = findViewById<Button>(R.id.createTurnBtn)
-//        createPosition.setOnClickListener{
-//
-//        }
-
-
         val category = intent.categories
         val name : String?
         val desc : String?
         val author : String?
         var loggedUserId = 1
         var creatorUserId = 1
+        var gsonMainqueue = Gson()
+        var responseMainqueue = gsonMainqueue?.fromJson(myJson, Array<Positions>::class.java)?.toList()
+        var count = 0
+        var admin = 0 // модератор!!!
+        //
         if (category.contains("CreateTurn")){
             name = intent.getStringExtra("NameTurn")
             desc = intent.getStringExtra("About")
@@ -185,30 +197,21 @@ class TurnActivity : AppCompatActivity() {
             creatorUserId = intent.getIntExtra("IdCreator",0)
 
         }
-        var count = 0
-        var admin = 0 // модератор!!!
+        //
         if (loggedUserId==creatorUserId){
             admin = 2
         }
-        var gsonMainqueue = Gson()
-        var responseMainqueue =
-            gsonMainqueue?.fromJson(myJson, Array<Positions>::class.java)?.toList()
-
-
+        //
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in)
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out)
-
-        val timer = Timer()
-
-
+        //
         val ButtonToPeople: Button = findViewById(R.id.turnPeopleBtn)
         val recyclerView: RecyclerView = findViewById(R.id.PositionsRec)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = false
-
+        //
         val WarningTxt: CardView = findViewById(R.id.WarningJoinTxt)
         val ShareBtn1: Button = findViewById(R.id.ShareBtn)
-
         val positionsAdapter = PositionsAdapter(this, admin)
         val positionsList = mutableListOf<Positions>()
         var b = true
@@ -232,9 +235,7 @@ class TurnActivity : AppCompatActivity() {
         } else {
             resources.getString(R.string.hintToPositionTurn,posCount,pos[posCount%10])
         }
-        //numberToGoTextView.text = hintPos
-
-
+        //
         if (loggedUserId == admin) {
             ShareBtn1.visibility = View.GONE
 
@@ -245,21 +246,17 @@ class TurnActivity : AppCompatActivity() {
         else{
             Pencil.visibility = View.GONE
         }
-
-
+        //
         val JoinBtn: Button = findViewById(R.id.createTurnBtn)
-
         JoinBtn.setOnClickListener() {
-
             JoinBtn.isClickable = false
             val positionNew = Positions(
                 9,
-                "Yuri",
+                "Иванов Юрий Владимирович",
                 "2391",
                 loggedUserId
             ) // idUser для каждого пользователя свой
             var temp = positionsAdapter.addPosition(positionNew)
-
             if (temp != 0) {
                 temp++
                 val str = String.format(getString(R.string.warningTxtTurn), temp)
@@ -274,10 +271,6 @@ class TurnActivity : AppCompatActivity() {
                         JoinBtn.isClickable = true
                     }, 2000)
                 }, 3000)
-
-//                timer.schedule(timerTask {  }, 10000)
-                //var warningtext = (WarningTxt.visibility = View.VISIBLE)
-                //WarningTxt.visibility = View.VISIBLE
             }
 
         }
@@ -325,6 +318,10 @@ class TurnActivity : AppCompatActivity() {
             }
 
         }
+        var linLay : LinearLayout = findViewById(R.id.lineartemp)
+
+
+
 
 
 

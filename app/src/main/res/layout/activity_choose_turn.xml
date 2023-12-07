@@ -36,6 +36,13 @@
             app:cardCornerRadius="50dp"
             app:cardElevation="0dp">
 
+            <Button
+                android:id="@+id/teachBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorBlock"
+                android:visibility="visible" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,6 +77,13 @@
             android:layout_marginTop="30dp"
             app:cardBackgroundColor="@color/colorBlock"
             app:cardCornerRadius="50dp">
+
+            <Button
+                android:id="@+id/orgBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorBlock"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"

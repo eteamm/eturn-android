@@ -1,7 +1,7 @@
 package com.eturn
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -11,21 +11,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eturn.adapter.TurnAdapter
 import com.eturn.data.Turn
-import com.eturn.requests.ExampleTry
 import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import java.io.IOException
-import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -446,6 +438,11 @@ class MainActivity : AppCompatActivity() {
         val OrganizationBtn = findViewById<Button>(R.id.bOrg)
         val SearchTurns = findViewById<EditText>(R.id.NameForSearch)
         val recyclerView: RecyclerView = findViewById(R.id.turnsRec)
+        val view : View = findViewById(R.id.view)
+        val view2 : View = findViewById(R.id.view2)
+        val view3 : View = findViewById(R.id.view3)
+        val view4 : View = findViewById(R.id.view4)
+
         recyclerView.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(this)
@@ -480,22 +477,54 @@ class MainActivity : AppCompatActivity() {
         OrganizationBtn.setOnClickListener {
             AccessBtns = false
             checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view2.setBackgroundResource(R.drawable.button_right_clicked)
+            view.setBackgroundResource(R.drawable.button_left_noclicked)
+            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            OrganizationBtn.setTextColor(Color.parseColor("#20232A"))
+            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
+
 
         }
         StudiedBtn.setOnClickListener {
             AccessBtns = true
             checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view.setBackgroundResource(R.drawable.button_left_clicked)
+            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            StudiedBtn.setTextColor(Color.parseColor("#20232A"))
+            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
 
         }
         MyTurnsBtn.setOnClickListener {
             TypeBtns = true
             checkFilter(AccessBtns,TypeBtns, turnAdapter)
-
+            view3.setBackgroundResource(R.drawable.button_left_clicked)
+            view.setBackgroundResource(R.drawable.button_left_noclicked)
+            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            MyTurnsBtn.setTextColor(Color.parseColor("#20232A"))
+            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
         }
 
         InDostupBtn.setOnClickListener {
             TypeBtns = false
             checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view4.setBackgroundResource(R.drawable.button_right_clicked)
+            view.setBackgroundResource(R.drawable.button_left_noclicked)
+            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+            InDostupBtn.setTextColor(Color.parseColor("#20232A"))
+            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
         }
 
         SearchTurns.setOnKeyListener(object : View.OnKeyListener {
@@ -504,7 +533,7 @@ class MainActivity : AppCompatActivity() {
                     val s = SearchTurns.text.toString()
 
                     if ((event.action == KeyEvent.ACTION_DOWN)){
-                        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
                         if (Build.VERSION.SDK_INT >= 26) {
                             vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
                         } else {
