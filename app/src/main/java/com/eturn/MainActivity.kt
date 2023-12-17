@@ -2,6 +2,7 @@ package com.eturn
 
 import android.content.Intent
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -21,6 +22,14 @@ import com.google.gson.Gson
 
 
 class MainActivity : AppCompatActivity() {
+    val loggedUserId = 5
+    val turnAdapter = TurnAdapter(this, loggedUserId)
+    val turnList = mutableListOf<Turn>()
+    override fun onResume() {
+        super.onResume()
+
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +62,126 @@ class MainActivity : AppCompatActivity() {
 //                    toast.show()
 //                }
 //            })
+
+
+
+
+
+
+        var AccessBtns = true
+        var TypeBtns = true
+        val bcreateturn = findViewById<Button>(R.id.CreateTurnBtn)
+        val MyTurnsBtn = findViewById<Button>(R.id.bMy)
+        val InDostupBtn = findViewById<Button>(R.id.MainScreenInDostupBtn)
+        val StudiedBtn = findViewById<Button>(R.id.bStud)
+        val OrganizationBtn = findViewById<Button>(R.id.bOrg)
+        val SearchTurns = findViewById<EditText>(R.id.NameForSearch)
+
+        val view : View = findViewById(R.id.view)
+        val view2 : View = findViewById(R.id.view2)
+        val view3 : View = findViewById(R.id.view3)
+        val view4 : View = findViewById(R.id.view4)
+
+
+
+        val bExit = findViewById<ImageView>(R.id.exitImageView)
+        bExit.setOnClickListener {
+            val intent = Intent(this, StartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+        bcreateturn.setOnClickListener {
+            val intent = Intent(this, ChooseTurnActivity::class.java)
+            intent.putExtra("idUser", loggedUserId)
+            startActivity(intent)
+            finish()
+        }
+
+        OrganizationBtn.setOnClickListener {
+            TypeBtns = false
+//            AccessBtns = false
+            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view2.setBackgroundResource(R.drawable.button_right_clicked)
+            view.setBackgroundResource(R.drawable.button_left_noclicked)
+//            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+//            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            OrganizationBtn.setTextColor(Color.parseColor("#20232A"))
+            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
+
+
+        }
+        StudiedBtn.setOnClickListener {
+//            AccessBtns = true
+            TypeBtns = true
+            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view.setBackgroundResource(R.drawable.button_left_clicked)
+//            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+//            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            StudiedBtn.setTextColor(Color.parseColor("#20232A"))
+            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
+
+        }
+        MyTurnsBtn.setOnClickListener {
+            AccessBtns = true
+            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view3.setBackgroundResource(R.drawable.button_left_clicked)
+//            view.setBackgroundResource(R.drawable.button_left_noclicked)
+//            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view4.setBackgroundResource(R.drawable.button_right_noclicked)
+            MyTurnsBtn.setTextColor(Color.parseColor("#20232A"))
+//            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
+        }
+
+        InDostupBtn.setOnClickListener {
+//            TypeBtns = false
+            AccessBtns = false
+            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            view4.setBackgroundResource(R.drawable.button_right_clicked)
+//            view.setBackgroundResource(R.drawable.button_left_noclicked)
+//            view2.setBackgroundResource(R.drawable.button_right_noclicked)
+            view3.setBackgroundResource(R.drawable.button_left_noclicked)
+            InDostupBtn.setTextColor(Color.parseColor("#20232A"))
+//            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
+            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
+//            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
+        }
+
+        SearchTurns.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    val s = SearchTurns.text.toString()
+
+                    if ((event.action == KeyEvent.ACTION_DOWN)){
+                        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                        } else {
+                            vibrator.vibrate(200)
+                        }
+//                        allowEdit.requestFocus()
+//                        allowEdit.isCursorVisible = true
+
+                    }
+                    SearchTurns.setText("")
+                    SearchTurns.requestFocus()
+                    SearchTurns.isCursorVisible = true
+                    return true
+                }
+
+
+
+                return false
+            }
+        })
 
 
         val myJson = """
@@ -421,7 +550,6 @@ class MainActivity : AppCompatActivity() {
         ]
         """.trimIndent()
 
-        val loggedUserId = 5
         val gson = Gson()
         val MyTurns = gson?.fromJson(myJson, Array<Turn>::class.java)?.toList()
         val InDostupTurns = gson?.fromJson(dostupJson, Array<Turn>::class.java)?.toList()
@@ -429,131 +557,24 @@ class MainActivity : AppCompatActivity() {
             gson?.fromJson(myJsonforOrganisations, Array<Turn>::class.java)?.toList()
         val InDostupTurnsforOrganisations =
             gson?.fromJson(dostupJsonforOrganisations, Array<Turn>::class.java)?.toList()
-        var AccessBtns = true
-        var TypeBtns = true
-        val bcreateturn = findViewById<Button>(R.id.CreateTurnBtn)
-        val MyTurnsBtn = findViewById<Button>(R.id.bMy)
-        val InDostupBtn = findViewById<Button>(R.id.MainScreenInDostupBtn)
-        val StudiedBtn = findViewById<Button>(R.id.bStud)
-        val OrganizationBtn = findViewById<Button>(R.id.bOrg)
-        val SearchTurns = findViewById<EditText>(R.id.NameForSearch)
         val recyclerView: RecyclerView = findViewById(R.id.turnsRec)
-        val view : View = findViewById(R.id.view)
-        val view2 : View = findViewById(R.id.view2)
-        val view3 : View = findViewById(R.id.view3)
-        val view4 : View = findViewById(R.id.view4)
-
         recyclerView.setHasFixedSize(true)
+        val RecView = findViewById<RecyclerView>(R.id.turnsRec)
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager;
-        val turnAdapter = TurnAdapter(this, loggedUserId)
+
         recyclerView.adapter = turnAdapter
-        val turnList = mutableListOf<Turn>()
+
         MyTurns?.forEach {
             var turn =
                 Turn(it.id, it.name, it.description, it.nameCreator, it.idUser, it.numberOfPeople)
             turnList.add(0, turn)
         }
         turnAdapter.setItems(turnList, true)
+        RecView.visibility = View.VISIBLE
         recyclerView.isNestedScrollingEnabled = false;
 
-
-        val bExit = findViewById<ImageView>(R.id.exitImageView)
-        bExit.setOnClickListener {
-            val intent = Intent(this, StartActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-
-        bcreateturn.setOnClickListener {
-            val intent = Intent(this, ChooseTurnActivity::class.java)
-            intent.putExtra("idUser", loggedUserId)
-            startActivity(intent)
-            finish()
-        }
-
-        OrganizationBtn.setOnClickListener {
-            AccessBtns = false
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
-            view2.setBackgroundResource(R.drawable.button_right_clicked)
-            view.setBackgroundResource(R.drawable.button_left_noclicked)
-            view3.setBackgroundResource(R.drawable.button_left_noclicked)
-            view4.setBackgroundResource(R.drawable.button_right_noclicked)
-            OrganizationBtn.setTextColor(Color.parseColor("#20232A"))
-            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
-
-
-        }
-        StudiedBtn.setOnClickListener {
-            AccessBtns = true
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
-            view2.setBackgroundResource(R.drawable.button_right_noclicked)
-            view.setBackgroundResource(R.drawable.button_left_clicked)
-            view3.setBackgroundResource(R.drawable.button_left_noclicked)
-            view4.setBackgroundResource(R.drawable.button_right_noclicked)
-            StudiedBtn.setTextColor(Color.parseColor("#20232A"))
-            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
-
-        }
-        MyTurnsBtn.setOnClickListener {
-            TypeBtns = true
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
-            view3.setBackgroundResource(R.drawable.button_left_clicked)
-            view.setBackgroundResource(R.drawable.button_left_noclicked)
-            view2.setBackgroundResource(R.drawable.button_right_noclicked)
-            view4.setBackgroundResource(R.drawable.button_right_noclicked)
-            MyTurnsBtn.setTextColor(Color.parseColor("#20232A"))
-            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            InDostupBtn.setTextColor(Color.parseColor("#9ADBFF"))
-        }
-
-        InDostupBtn.setOnClickListener {
-            TypeBtns = false
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
-            view4.setBackgroundResource(R.drawable.button_right_clicked)
-            view.setBackgroundResource(R.drawable.button_left_noclicked)
-            view2.setBackgroundResource(R.drawable.button_right_noclicked)
-            view3.setBackgroundResource(R.drawable.button_left_noclicked)
-            InDostupBtn.setTextColor(Color.parseColor("#20232A"))
-            StudiedBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            MyTurnsBtn.setTextColor(Color.parseColor("#9ADBFF"))
-            OrganizationBtn.setTextColor(Color.parseColor("#9ADBFF"))
-        }
-
-        SearchTurns.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    val s = SearchTurns.text.toString()
-
-                    if ((event.action == KeyEvent.ACTION_DOWN)){
-                        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-                        if (Build.VERSION.SDK_INT >= 26) {
-                            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-                        } else {
-                            vibrator.vibrate(200)
-                        }
-//                        allowEdit.requestFocus()
-//                        allowEdit.isCursorVisible = true
-
-                    }
-                    SearchTurns.setText("")
-                    SearchTurns.requestFocus()
-                    SearchTurns.isCursorVisible = true
-                    return true
-                }
-
-
-
-                return false
-            }
-        })
     }
 
     private fun checkFilter(AccessBtns : Boolean, TypeBtns : Boolean, turnAdapter: TurnAdapter){
@@ -745,10 +766,10 @@ class MainActivity : AppCompatActivity() {
             list = MyTurns
             type=true
         } else if (AccessBtns && !TypeBtns) {
-            list = InDostupTurns
+            list = MyTurnsforOrganisations
             type=true
         } else if (!AccessBtns && TypeBtns) {
-            list = MyTurnsforOrganisations
+            list = InDostupTurns
             type=false
         } else if (!AccessBtns && !TypeBtns) {
             list = InDostupTurnsforOrganisations
@@ -758,9 +779,12 @@ class MainActivity : AppCompatActivity() {
             pullList(turnAdapter, list,type)
         }
     }
-    
+
+
+
     private fun pullList(turnAdapter : TurnAdapter, list : List<Turn>, type : Boolean){
         val turns = mutableListOf<Turn>()
+
         list?.forEach {
             var turn = Turn(
                 it.id,
@@ -773,5 +797,10 @@ class MainActivity : AppCompatActivity() {
             turns.add(0, turn)
         }
         turnAdapter.setItems(turns, type)
+
+
+
     }
+
+
 }

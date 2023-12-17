@@ -21,6 +21,9 @@
     <string name="orgturn">ОРГАНИЗАЦИОННАЯ</string>
     <string name="orgturndesc">Создается для неограниченного количества различных лиц</string>
 
+    <string name="orgturnBtn">ОРГАНИЗАЦОННЫЕ</string>
+    <string name="teachTurnBtn">УЧЕБНЫЕ</string>
+
     <string name="EditingQueue">Редактировать</string>
     <string name="EditingQueueDesc">изменить параметры</string>
     <string name="editing1">название очереди</string>

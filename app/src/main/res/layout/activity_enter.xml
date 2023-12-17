@@ -83,7 +83,7 @@
                 android:fontFamily="@font/exoregular"
                 android:gravity="center_vertical"
                 android:hint="@string/Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"

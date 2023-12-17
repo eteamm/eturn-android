@@ -251,7 +251,7 @@
                                         android:layout_height="match_parent"
                                         android:layout_margin="0dp"
                                         android:background="@android:color/transparent"
-                                        android:text="УЧЕБНЫЕ"
+                                        android:text="@string/teachTurnBtn"
                                         android:textColor="@color/background"
                                         android:textSize="12sp"
                                         app:cornerRadius="0dp"
@@ -274,7 +274,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@android:color/transparent"
-                                        android:text="ОРГАНИЗАЦИОННЫЕ"
+                                        android:text="@string/orgturnBtn"
                                         android:textColor="@color/colorMain"
                                         android:textSize="12sp" />
                                 </FrameLayout>
@@ -288,7 +288,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
+                        android:paddingTop="10dp"
                         android:paddingBottom="15dp">
 
                         <FrameLayout
@@ -300,21 +300,21 @@
                                 android:id="@+id/view3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/button_left_noclicked" />
+                                android:background="@drawable/button_left_clicked" />
 
                             <Button
                                 android:id="@+id/bMy"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:background="@android:color/transparent"
                                 android:backgroundTint="@null"
                                 android:fontFamily="@font/exosemibold"
                                 android:text="@string/ButtonMyTextMain"
-                                android:textColor="@color/colorMain"
+                                android:textColor="@color/background"
                                 android:textColorHighlight="@color/colorMain"
                                 android:textColorHint="@color/colorMain"
                                 android:textColorLink="@color/colorMain"
+                                android:textSize="12sp"
                                 app:rippleColor="@color/onButton" />
                         </FrameLayout>
 
@@ -344,6 +344,7 @@
                                 android:textColorHighlight="@color/colorMain"
                                 android:textColorHint="@color/colorMain"
                                 android:textColorLink="@color/colorMain"
+                                android:textSize="12sp"
                                 app:rippleColor="@color/onButton" />
 
                         </FrameLayout>
@@ -356,17 +357,25 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Поиск" />
+                        android:text="Поиск"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ProgressBar
+                        android:id="@+id/progressBar2"
+                        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/turnsRec"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
             </LinearLayout>
