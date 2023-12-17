@@ -17,7 +17,7 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
 
     private var ListPositions = ArrayList<Positions>()
     private var idCurrent = 0
-
+    private var isFirst = false
     class HolderPositions(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userNameTextView: TextView = itemView.findViewById(R.id.numberTxt)
         val userGroupTextView: TextView = itemView.findViewById(R.id.positionNumberTxt)
@@ -48,7 +48,13 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
 
         val positions : Positions = ListPositions[position] //заполнение данных в эл списка
         holder.userNameTextView.text = positions.name
-        var i = position+1
+        var i = 0
+        if(isFirst){
+            i = position+2
+        }
+        else{
+            i = position+1
+        }
         var count = 0
 
         if(admin == 0) {
@@ -76,7 +82,10 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         holder.userGroupTextView.text = positions.groupNumber
     }
 
-
+    fun numberChange(isF: Boolean){
+        isFirst = isF
+        notifyDataSetChanged()
+    }
 
     fun addPosition(position: Positions) : Int{
         var count = ListPositions.size
@@ -112,7 +121,8 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         return count
     }
 
-    fun setItems(item: MutableList<Positions>, idUser : Int) {
+    fun setItems(item: MutableList<Positions>, idUser : Int, isF : Boolean) {
+        isFirst = isF
         ListPositions.clear()
         ListPositions.addAll(item)
         idCurrent = idUser

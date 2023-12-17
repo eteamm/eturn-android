@@ -18,6 +18,7 @@ import com.eturn.adapter.PositionsAdapter
 import com.eturn.data.Positions
 import com.eturn.data.YourPosition
 import com.google.gson.Gson
+import org.w3c.dom.Text
 import java.util.*
 
 
@@ -107,7 +108,7 @@ class TurnActivity : AppCompatActivity() {
         val jsontemp = """
         {
             idPos: 1,
-            isFirst: false,
+            isFirst: true,
             name: "Иванов Юрий Владимирович",
             groupNumber: "2391",
             number: 1,
@@ -225,7 +226,7 @@ class TurnActivity : AppCompatActivity() {
             positionsList.add(position)  // если пользователь авторизован то не добавляем позицию
         }
         recyclerView.adapter = positionsAdapter
-        positionsAdapter.setItems(positionsList, loggedUserId) // добавлояем bool переменную
+        positionsAdapter.setItems(positionsList, loggedUserId, false) // добавлояем bool переменную
         val pos: Array<String> = arrayOf("позиций","позиция","позиции","позиции","позиции","позиций","позиций","позиций","позиций","позиций")
         val posCount = positionsAdapter.getLast(loggedUserId)
         val hintPos = if (posCount==0) {
@@ -300,25 +301,45 @@ class TurnActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         val exitcurTurn : ImageView = findViewById(R.id.delBtn)
         val curPeoplebox : CardView = findViewById(R.id.curBox)
-        val curjoinBtn : Button = findViewById(R.id.curJoinBtn)
         val yourTurn : TextView = findViewById(R.id.yourTurnTxt)
         var ispressed = false
-        curjoinBtn.setOnClickListener(){
-            if(!ispressed){
-                curjoinBtn.text = "выйти"
-                curjoinBtn.setTextColor(Color.parseColor("#F4694D"))
-                ispressed = true
-            }
-            else {
-                curPeoplebox.visibility = View.GONE
-                yourTurn.visibility = View.GONE
-            }
+        val curjoinBtn : Button = findViewById(R.id.curJoinBtn)
+        val nameTurn : TextView = findViewById(R.id.numberTxt)
+        val myPosNumber2 : TextView = findViewById(R.id.positionNumberTxt)
+        nameTurn.text = yourPos?.name
+        myPosNumber2.text = yourPos?.groupNumber
+        var numberpeopleafter : TextView = findViewById(R.id.timeDuration2)
+        val timeDuration : TextView = findViewById(R.id.timeDuration3)
 
+        if(yourPos?.isFirst == true){
+            positionsList.removeAt(0)
+            positionsAdapter.setItems(positionsList, loggedUserId, yourPos?.isFirst == true)
+            if(yourPos?.isGo == false){
+                curjoinBtn.visibility = View.VISIBLE
+                numberpeopleafter.visibility = View.GONE
+                timeDuration.visibility = View.GONE
+                curjoinBtn.setOnClickListener(){
+                    if(!ispressed){
+                        curjoinBtn.text = "выйти"
+                        curjoinBtn.setTextColor(Color.parseColor("#F4694D"))
+                        ispressed = true
+                    }
+                    else {
+                        curPeoplebox.visibility = View.GONE
+                        yourTurn.visibility = View.GONE
+                        positionsAdapter.numberChange(false)
+                    }
+                }
+            }
         }
-        var linLay : LinearLayout = findViewById(R.id.lineartemp)
+        else{
+            val numbr = String.format(getString(R.string.numberofpeople1), yourPos?.number)
+            numberpeopleafter.text = numbr
+        }
+
+
 
 
 
