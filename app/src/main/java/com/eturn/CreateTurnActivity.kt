@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.eturn.R
 import com.eturn.adapter.AllowGroupAdapter
 import com.eturn.data.AllowGroup
 class CreateTurnActivity : AppCompatActivity() {
@@ -33,7 +32,7 @@ class CreateTurnActivity : AppCompatActivity() {
         allowGroupAdapter.setItems(allowGroupList)
 
 
-        val nameTurn : EditText = findViewById(R.id.NameTurn)
+        val nameTurn : EditText = findViewById(R.id.nameTurn)
         val descTurn : EditText = findViewById(R.id.SettingsTurn)
         val warningText : TextView = findViewById(R.id.textView5)
 
@@ -121,8 +120,7 @@ class CreateTurnActivity : AppCompatActivity() {
                         } else {
                             vibrator.vibrate(200)
                         }
-//                        allowEdit.requestFocus()
-//                        allowEdit.isCursorVisible = true
+
 
                     }
                     allowEdit.setText("")

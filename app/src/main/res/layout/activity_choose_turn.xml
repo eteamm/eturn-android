@@ -16,11 +16,11 @@
         android:id="@+id/choiceTurntxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/exoregular"
+        android:fontFamily="@font/exobold"
         android:gravity="center"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:text="@string/choiceTurn"
-        android:textSize="20sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,10 +31,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:background="@color/colorBlock"
             app:cardBackgroundColor="@color/colorBlock"
             app:cardCornerRadius="50dp"
             app:cardElevation="0dp">
+
+            <Button
+                android:id="@+id/teachBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorBlock"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,7 +57,7 @@
                     android:layout_gravity="bottom|center"
                     android:fontFamily="@font/exoregular"
                     android:text="@string/teachturn"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -59,7 +67,7 @@
                     android:fontFamily="@font/exoregular"
                     android:paddingBottom="10dp"
                     android:text="@string/teachturndesc"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -67,9 +75,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             app:cardBackgroundColor="@color/colorBlock"
             app:cardCornerRadius="50dp">
+
+            <Button
+                android:id="@+id/orgBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorBlock"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +99,7 @@
                     android:layout_gravity="bottom|center"
                     android:fontFamily="@font/exoregular"
                     android:text="@string/orgturn"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -94,7 +109,7 @@
                     android:fontFamily="@font/exoregular"
                     android:paddingBottom="15dp"
                     android:text="@string/orgturndesc"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -12,7 +12,7 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
         val ToMainScreenBtn = findViewById<Button>(R.id.ToMainScreenBtn)
         ToMainScreenBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, EnterActivity::class.java)
             startActivity(intent)
         }
     }

@@ -68,7 +68,7 @@
                     app:cardElevation="0dp">
 
                     <EditText
-                        android:id="@+id/NameTurn"
+                        android:id="@+id/nameTurn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -305,7 +305,6 @@
             android:background="#00E9EFF2"
             android:backgroundTint="@color/background"
             android:fontFamily="@font/exosemibold"
-            android:onClick="ExitfromCreateTurn"
             android:text="@string/cancelBtnCreate"
             android:textColor="@color/colorMain"
             android:textColorHighlight="@color/colorMain"

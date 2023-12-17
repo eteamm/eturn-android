@@ -21,6 +21,9 @@
     <string name="orgturn">ОРГАНИЗАЦИОННАЯ</string>
     <string name="orgturndesc">Создается для неограниченного количества различных лиц</string>
 
+    <string name="orgturnBtn">ОРГАНИЗАЦОННЫЕ</string>
+    <string name="teachTurnBtn">УЧЕБНЫЕ</string>
+
     <string name="EditingQueue">Редактировать</string>
     <string name="EditingQueueDesc">изменить параметры</string>
     <string name="editing1">название очереди</string>
@@ -63,6 +66,15 @@
     <string name="hintToPositionTurn2">Ты еще не встал в очередь</string>
     <string name="inviteTurn">поделиться</string>
     <string name="deleteTurn">удалить очередь</string>
+
+    <string name="Enter">ВХОД</string>
+    <string name="Authorization">Авторизация во время бета-теста приложения</string>
+    <string name="Login">логин</string>
+    <string name="Password">пароль</string>
+
+    <string name="TextAdmin">тестовый доступ можно получить, набрав логин: admin пароль: admin</string>
+
+    <string name="Enter2">войти</string>
 
     <string name="mainTextCreate">Создать</string>
     <string name="mainTextCreatedesc">новая очередь</string>

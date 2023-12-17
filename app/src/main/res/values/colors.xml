@@ -8,6 +8,8 @@
     <color name="teal_700">#874001</color>
     <color name="black">#FF000000</color>
 
+
+    <color name="ColorforNoClickedButton">#4C5E67</color>
     <color name="mainColor">#F4694D</color>
     <color name="avatar">#F4694D</color>
     <color name="mainColorText">#000</color>

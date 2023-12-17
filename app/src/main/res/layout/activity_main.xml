@@ -229,22 +229,56 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="51dp"
-                                android:orientation="horizontal">
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="10dp">
 
-                                <Button
-                                    android:id="@+id/bStud"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="УЧЕБНЫЕ" />
+                                    android:padding="0dp">
 
-                                <Button
-                                    android:id="@+id/bOrg"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="ОРГАНИЗАЦИОННЫЕ" />
+                                    <View
+                                        android:id="@+id/view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/button_left_clicked" />
+
+                                    <Button
+                                        android:id="@+id/bStud"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="0dp"
+                                        android:background="@android:color/transparent"
+                                        android:text="@string/teachTurnBtn"
+                                        android:textColor="@color/background"
+                                        android:textSize="12sp"
+                                        app:cornerRadius="0dp"
+                                        app:iconPadding="0dp" />
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                    <View
+                                        android:id="@+id/view2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/button_right_noclicked" />
+
+                                    <Button
+                                        android:id="@+id/bOrg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/transparent"
+                                        android:text="@string/orgturnBtn"
+                                        android:textColor="@color/colorMain"
+                                        android:textSize="12sp" />
+                                </FrameLayout>
+
                             </LinearLayout>
                         </LinearLayout>
 
@@ -254,38 +288,67 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
+                        android:paddingTop="10dp"
                         android:paddingBottom="15dp">
 
-                        <Button
-                            android:id="@+id/bMy"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@null"
-                            android:fontFamily="@font/exosemibold"
-                            android:text="@string/ButtonMyTextMain"
-                            android:textColor="@color/colorMain"
-                            android:textColorHighlight="@color/colorMain"
-                            android:textColorHint="@color/colorMain"
-                            android:textColorLink="@color/colorMain"
-                            app:rippleColor="@color/onButton" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                        <Button
-                            android:id="@+id/MainScreenInDostupBtn"
+                            <View
+                                android:id="@+id/view3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_left_clicked" />
+
+                            <Button
+                                android:id="@+id/bMy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@null"
+                                android:fontFamily="@font/exosemibold"
+                                android:text="@string/ButtonMyTextMain"
+                                android:textColor="@color/background"
+                                android:textColorHighlight="@color/colorMain"
+                                android:textColorHint="@color/colorMain"
+                                android:textColorLink="@color/colorMain"
+                                android:textSize="12sp"
+                                app:rippleColor="@color/onButton" />
+                        </FrameLayout>
+
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@null"
-                            android:backgroundTintMode="add"
-                            android:fontFamily="@font/exosemibold"
-                            android:text="@string/ButtonInDostupTextMain"
-                            android:textAllCaps="false"
-                            android:textColor="@color/onButton"
-                            android:textColorHighlight="@color/colorMain"
-                            android:textColorHint="@color/colorMain"
-                            android:textColorLink="@color/colorMain"
-                            app:rippleColor="@color/onButton" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <View
+                                android:id="@+id/view4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_right_noclicked" />
+
+                            <Button
+                                android:id="@+id/MainScreenInDostupBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@null"
+                                android:backgroundTintMode="add"
+                                android:fontFamily="@font/exosemibold"
+                                android:text="@string/ButtonInDostupTextMain"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorMain"
+                                android:textColorHighlight="@color/colorMain"
+                                android:textColorHint="@color/colorMain"
+                                android:textColorLink="@color/colorMain"
+                                android:textSize="12sp"
+                                app:rippleColor="@color/onButton" />
+
+                        </FrameLayout>
+
                     </LinearLayout>
 
                     <EditText
@@ -294,17 +357,25 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Поиск" />
+                        android:text="Поиск"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ProgressBar
+                        android:id="@+id/progressBar2"
+                        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/turnsRec"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -330,7 +401,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorMain"
             android:fontFamily="@font/exosemibold"
-            android:onClick="CreateTurn"
             android:text="@string/ButtonCreateTurnTextMain"
             android:textColor="@color/colorText"
             android:textColorHighlight="@color/onButton"
