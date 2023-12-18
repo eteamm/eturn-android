@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eturn.R
 import com.eturn.adapter.MemberAdapter
-import com.eturn.adapter.MemberAdapter2
 import com.eturn.data.Member
 import com.google.gson.Gson
 
@@ -31,10 +30,13 @@ class MembersActivity : AppCompatActivity() {
 
         val recyclerAdmins: RecyclerView = findViewById(R.id.AdminsRec)
         val recyclerUsers: RecyclerView = findViewById(R.id.UsersRec)
+        //val recyclerBlocked: RecyclerView = findViewById(R.id.BlockedRec)
         recyclerAdmins.layoutManager = LinearLayoutManager(this)
         recyclerUsers.layoutManager = LinearLayoutManager(this)
+        //recyclerBlocked.layoutManager = LinearLayoutManager(this)
         val AdminsAdapter = MemberAdapter(this,1)
         val UsersAdapter = MemberAdapter(this,2)
+        //val BlockedAdapter = MemberAdapter(this,3)
 
         recyclerAdmins.adapter = AdminsAdapter
         recyclerUsers.adapter = UsersAdapter
@@ -61,12 +63,22 @@ class MembersActivity : AppCompatActivity() {
 
         val SearchButton1 = findViewById<ImageButton>(R.id.searchButton1)
         val SearchButton2 = findViewById<ImageButton>(R.id.searchButton2)
+        val SearchButton3 = findViewById<ImageButton>(R.id.searchButton3)
         val AdminsTitle = findViewById<TextView>(R.id.adminss)
         val StudentsTitle = findViewById<TextView>(R.id.members)
+        val BlockedTitle = findViewById<TextView>(R.id.blocked)
         val SearchAdmins = findViewById<CardView>(R.id.adminsCardView)
         val SearchStudents = findViewById<CardView>(R.id.membersCardView)
+        val SearchBlocked = findViewById<CardView>(R.id.blockedCardView)
         val CancelAdmins = findViewById<ImageButton>(R.id.cancelButton1)
         val CancelStudents = findViewById<ImageButton>(R.id.cancelButton2)
+        val CancelBlocked = findViewById<ImageButton>(R.id.cancelButton3)
+        val ShowButton1 = findViewById<ImageButton>(R.id.showButton1)
+        val HideButton1 = findViewById<ImageButton>(R.id.hideButton1)
+        val ShowButton2 = findViewById<ImageButton>(R.id.showButton2)
+        val HideButton2 = findViewById<ImageButton>(R.id.hideButton2)
+        val ShowButton3 = findViewById<ImageButton>(R.id.showButton3)
+        val HideButton3 = findViewById<ImageButton>(R.id.hideButton3)
 
         SearchButton1.setOnClickListener {
             AdminsTitle.visibility = View.GONE
@@ -82,6 +94,13 @@ class MembersActivity : AppCompatActivity() {
             CancelStudents.visibility = View.VISIBLE
         }
 
+        SearchButton3.setOnClickListener {
+            BlockedTitle.visibility = View.GONE
+            SearchBlocked.visibility = View.VISIBLE
+            SearchButton3.visibility = View.GONE
+            CancelBlocked.visibility = View.VISIBLE
+        }
+
         CancelAdmins.setOnClickListener {
             SearchAdmins.visibility = View.GONE
             CancelAdmins.visibility = View.GONE
@@ -95,5 +114,53 @@ class MembersActivity : AppCompatActivity() {
             StudentsTitle.visibility = View.VISIBLE
             SearchButton2.visibility = View.VISIBLE
         }
+
+        CancelBlocked.setOnClickListener {
+            SearchBlocked.visibility = View.GONE
+            CancelBlocked.visibility = View.GONE
+            BlockedTitle.visibility = View.VISIBLE
+            SearchButton3.visibility = View.VISIBLE
+        }
+
+
+        ShowButton1.setOnClickListener {
+            ShowButton1.visibility = View.GONE
+            HideButton1.visibility = View.VISIBLE
+            recyclerAdmins.visibility = View.VISIBLE
+            recyclerUsers.visibility = View.GONE
+        }
+
+        HideButton1.setOnClickListener {
+            HideButton1.visibility = View.GONE
+            ShowButton1.visibility = View.VISIBLE
+            recyclerAdmins.visibility = View.GONE
+        }
+
+        ShowButton2.setOnClickListener {
+            ShowButton2.visibility = View.GONE
+            HideButton2.visibility = View.VISIBLE
+            recyclerUsers.visibility = View.VISIBLE
+            recyclerAdmins.visibility = View.GONE
+        }
+
+        HideButton2.setOnClickListener {
+            HideButton2.visibility = View.GONE
+            ShowButton2.visibility = View.VISIBLE
+            recyclerUsers.visibility = View.GONE
+        }
+
+        ShowButton3.setOnClickListener {
+            ShowButton3.visibility = View.GONE
+            HideButton3.visibility = View.VISIBLE
+            //recyclerUsers.visibility = View.VISIBLE
+            //recyclerAdmins.visibility = View.GONE
+        }
+
+        HideButton3.setOnClickListener {
+            HideButton3.visibility = View.GONE
+            ShowButton3.visibility = View.VISIBLE
+            //recyclerUsers.visibility = View.GONE
+        }
+
     }
 }

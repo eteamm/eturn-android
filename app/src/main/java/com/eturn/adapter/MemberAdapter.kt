@@ -58,7 +58,7 @@ public class MemberAdapter(private val context: Context, private val type: Int) 
             holder.popupMenu.inflate(R.menu.member_item)
         }
         else {
-            holder.popupMenu.inflate(R.menu.member_item_2)
+
         }
         holder.imageContextMenuButton.setOnClickListener {
             holder.popupMenu.show()

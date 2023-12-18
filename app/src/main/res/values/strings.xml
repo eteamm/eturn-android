@@ -44,6 +44,7 @@
     <string name="TitileListOfParticipants">Зачётная неделя</string>
     <string name="AdminsText">АДМИНИСТРАТОРЫ</string>
     <string name="StudentsText">УЧАСТНИКИ</string>
+    <string name="BlockedText">ЗАБЛОКИРОВАННЫЕ</string>
     <string name="AdminsQuantity">%1$d администратора</string>
     <string name="StudentsQuantity">%1$d участника</string>
     <string name="search">введите нужное имя...</string>
