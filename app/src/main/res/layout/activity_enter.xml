@@ -31,6 +31,7 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/exoregular"
             android:text="@string/Authorization" />
 
     </LinearLayout>
@@ -99,6 +100,7 @@
             android:id="@+id/textView18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/exoregular"
             android:paddingTop="20dp"
             android:text="@string/TextAdmin"
             android:textColor="@color/descText" />
