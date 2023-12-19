@@ -2,23 +2,29 @@ package com.eturn
 
 import android.content.Intent
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.eturn.adapter.TurnAdapter
 import com.eturn.data.Turn
 import com.google.gson.Gson
+//import okhttp3.Call
+//import okhttp3.Callback
+//import okhttp3.OkHttpClient
+//import okhttp3.Request
+//import okhttp3.Response
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,14 +40,54 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 //        val ex = ExampleTry()
 //        ex.run()
 
-//        val url = "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json"
-//        val request: Request = Request.Builder()
-//            .url(url)
-//            .build()
+//        Thread {
+
+//            val client = OkHttpClient()
+//
+//            val request = Request.Builder()
+//                .url("http://90.156.229.190:8089/user/1")
+//                .build()
+//
+//            client.newCall(request).enqueue(object : Callback {
+//                override fun onFailure(call: Call, e: IOException) {
+//                    e.printStackTrace()
+//                }
+//
+//                override fun onResponse(call: Call, response: Response) {
+//                    response.use {
+//                        if (!response.isSuccessful) {
+//                            throw IOException(
+//                                "Запрос к серверу не был успешен:" +
+//                                        " ${response.code} ${response.message}"
+//                            )
+//                        }
+//                        // пример получения всех заголовков ответа
+//                        for ((name, value) in response.headers) {
+//                            Log.i("MYYY", "$name: $value")
+//                        }
+//                        // вывод тела ответа
+//                        Log.e("MYYY", response.body!!.string())
+//                    }
+//                }
+//            })
+//        }.start()
+
+            val url = "http://90.156.229.190:8089/user/1";
+            val queue = Volley.newRequestQueue(applicationContext)
+            val request = StringRequest(
+                url,
+                {
+                    result -> Log.d("MYYY", "$result")
+                },
+                {
+                    error -> Log.d("MYYY", "$error")
+                }
+            )
+            queue.add(request)
+
 
 //        OkHttpClient().newCall(request)
 //            .enqueue(object : Callback {
