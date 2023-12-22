@@ -9,6 +9,7 @@
     tools:context="com.eturn.CreateTurnActivity">
 
     <ScrollView
+        android:id="@+id/scrollCreateTurn"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -88,11 +89,12 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/nameTurnCreateError"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/exoregular"
-                    android:paddingLeft="30dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:text="@string/warningCreateTurn"
                     android:textColor="@color/warningText"
                     android:visibility="gone"
@@ -190,18 +192,25 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:padding="20dp"
                     app:cardBackgroundColor="@color/colorBlock"
                     app:cardCornerRadius="30dp"
                     app:cardElevation="0dp">
 
-                    <Spinner
-                        android:id="@+id/spinner"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorTextSecond"
-                        android:contextClickable="false"
-                        android:entries="@array/ParametersforTurn"
-                        />
+                        android:layout_margin="20dp"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorTextSecond"
+                            android:contextClickable="false"
+                            android:entries="@array/ParametersforTurn" />
+                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -251,7 +260,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/exoregular"
-                    android:paddingLeft="30dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:text="@string/warningText1"
                     android:textColor="@color/warningText"
                     android:visibility="gone"

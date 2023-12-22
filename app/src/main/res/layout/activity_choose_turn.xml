@@ -29,6 +29,7 @@
         android:paddingTop="20dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/TurnButtonChoose1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -36,13 +37,6 @@
             app:cardBackgroundColor="@color/colorBlock"
             app:cardCornerRadius="50dp"
             app:cardElevation="0dp">
-
-            <Button
-                android:id="@+id/teachBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/colorBlock"
-                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,6 +51,7 @@
                     android:layout_gravity="bottom|center"
                     android:fontFamily="@font/exoregular"
                     android:text="@string/teachturn"
+                    android:textAlignment="center"
                     android:textSize="22sp" />
 
                 <TextView
@@ -67,24 +62,19 @@
                     android:fontFamily="@font/exoregular"
                     android:paddingBottom="10dp"
                     android:text="@string/teachturndesc"
+                    android:textAlignment="center"
                     android:textSize="11sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/TurnButtonChoose2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             app:cardBackgroundColor="@color/colorBlock"
             app:cardCornerRadius="50dp">
-
-            <Button
-                android:id="@+id/orgBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/colorBlock"
-                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,6 +89,8 @@
                     android:layout_gravity="bottom|center"
                     android:fontFamily="@font/exoregular"
                     android:text="@string/orgturn"
+                    android:textAlignment="center"
+                    android:textColor="@color/background"
                     android:textSize="22sp" />
 
                 <TextView
@@ -107,8 +99,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:fontFamily="@font/exoregular"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:paddingBottom="15dp"
                     android:text="@string/orgturndesc"
+                    android:textAlignment="center"
+                    android:textColor="@color/background"
                     android:textSize="11sp" />
             </LinearLayout>
 

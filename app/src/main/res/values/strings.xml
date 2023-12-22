@@ -87,6 +87,7 @@
     <string name="cancelBtnCreate">отмена</string>
     <string name="warningTxtTurn">Вы уже вставали в очередь недавно. Через %1$d позиций вы сможете сделать это снова!</string>
     <string name="ExitTxtTurn">Вы уверены, что хотите выйти из этой очереди?</string>
+    <string name="warningCreate">Такой группы не существует.</string>
 
     <string name="DurationTxt">Предположительная длительность %1$d позиций</string>
     <string name="DurationTimeTxt">14 часов 32 минуты</string>
@@ -133,12 +134,12 @@
     <string name="allowgroupsTurn">Введите допустимые группы</string>
 
     <string-array name="ParametersforTurn">
-        <item>Для всех студентов</item>
-        <item>Для сотрудников</item>
-        <item>Для преподавателей</item>
-        <item>Для людей не из университета</item>
+<!--        <item>Для всех студентов</item>-->
+<!--        <item>Для сотрудников</item>-->
+<!--        <item>Для преподавателей</item>-->
+<!--        <item>Для людей не из университета</item>-->
         <item>Для допустимых групп</item>
-        <item>По ссылке-приглашению</item>
+<!--        <item>По ссылке-приглашению</item>-->
     </string-array>
 
     <string name="memberName">Ненарокова Маргарита Олеговна</string>
@@ -148,4 +149,6 @@
 
     <string name="warningText1">Недопустимый номер группы.</string>
     <string name="warningText2">Вы удалили группу или группы из списка допустимых. Все участники, состоящие в этих группах, будут удалены из очереди.</string>
+    <string name="warningText3">Список пуст.</string>
+    <string name="noTurn">Таких очередей тут нет :(</string>
 </resources>

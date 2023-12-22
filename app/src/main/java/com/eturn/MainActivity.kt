@@ -12,11 +12,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.eturn.adapter.TurnAdapter
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+             val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
             var url = "http://90.156.229.190:8089/user/$logged";
             val queue = Volley.newRequestQueue(applicationContext)
 
@@ -97,6 +101,8 @@ class MainActivity : AppCompatActivity() {
         val OrganizationBtn = findViewById<Button>(R.id.bOrg)
         val SearchTurns = findViewById<EditText>(R.id.NameForSearch)
 
+        val errorNotFound = findViewById<TextView>(R.id.turnNotFoundError)
+
         val view : View = findViewById(R.id.view)
         val view2 : View = findViewById(R.id.view2)
         val view3 : View = findViewById(R.id.view3)
@@ -114,15 +120,16 @@ class MainActivity : AppCompatActivity() {
 
         bcreateturn.setOnClickListener {
             val intent = Intent(this, ChooseTurnActivity::class.java)
-            intent.putExtra("idUser", loggedUserId)
+            intent.putExtra("idUser", logged)
             startActivity(intent)
             finish()
         }
 
         OrganizationBtn.setOnClickListener {
+            progress.visibility = View.VISIBLE
             TypeBtns = false
 //            AccessBtns = false
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            checkFilter(AccessBtns,TypeBtns, turnAdapter, queue)
             view2.setBackgroundResource(R.drawable.button_right_clicked)
             view.setBackgroundResource(R.drawable.button_left_noclicked)
 //            view3.setBackgroundResource(R.drawable.button_left_noclicked)
@@ -135,9 +142,10 @@ class MainActivity : AppCompatActivity() {
 
         }
         StudiedBtn.setOnClickListener {
+            progress.visibility = View.VISIBLE
 //            AccessBtns = true
             TypeBtns = true
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            checkFilter(AccessBtns,TypeBtns, turnAdapter, queue)
             view2.setBackgroundResource(R.drawable.button_right_noclicked)
             view.setBackgroundResource(R.drawable.button_left_clicked)
 //            view3.setBackgroundResource(R.drawable.button_left_noclicked)
@@ -149,8 +157,9 @@ class MainActivity : AppCompatActivity() {
 
         }
         MyTurnsBtn.setOnClickListener {
+            progress.visibility = View.VISIBLE
             AccessBtns = true
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            checkFilter(AccessBtns,TypeBtns, turnAdapter, queue)
             view3.setBackgroundResource(R.drawable.button_left_clicked)
 //            view.setBackgroundResource(R.drawable.button_left_noclicked)
 //            view2.setBackgroundResource(R.drawable.button_right_noclicked)
@@ -162,9 +171,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         InDostupBtn.setOnClickListener {
+            progress.visibility = View.VISIBLE
 //            TypeBtns = false
             AccessBtns = false
-            checkFilter(AccessBtns,TypeBtns, turnAdapter)
+            checkFilter(AccessBtns,TypeBtns, turnAdapter, queue)
             view4.setBackgroundResource(R.drawable.button_right_clicked)
 //            view.setBackgroundResource(R.drawable.button_left_noclicked)
 //            view2.setBackgroundResource(R.drawable.button_right_noclicked)
@@ -205,7 +215,6 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.turnsRec)
         recyclerView.setHasFixedSize(true)
-        val RecView = findViewById<RecyclerView>(R.id.turnsRec)
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager;
@@ -226,8 +235,12 @@ class MainActivity : AppCompatActivity() {
                     val turnsList : MutableList<Turn>? = gson?.fromJson(result, type);
                     if (turnsList!=null){
                         turnAdapter.setItems(turnsList, true)
-                        RecView.visibility = View.VISIBLE
+                        recyclerView.visibility = View.VISIBLE
                     }
+                    else{
+                        errorNotFound.visibility = View.VISIBLE;
+                    }
+                    progress.visibility = View.GONE
                 }
             },
             {
@@ -243,227 +256,85 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun checkFilter(AccessBtns : Boolean, TypeBtns : Boolean, turnAdapter: TurnAdapter){
-        val myJson = """
-        [ 
-            {
-                id: 1, 
-                name: "Зачетная неделя",
-                description: "Берите с собой ручки!",
-                nameCreator: "Железняк Александр Владимирович",
-                idUser: 1,
-                numberOfPeople: 46
-            }, 
-            {
-                id: 2, 
-                name: "Деканат Отчисления",
-                description: "Стучитесь и будьте культурными!", 
-                nameCreator: "Холод Иван Иванович", 
-                idUser: 4,
-                numberOfPeople: 36
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 5, 
-            name: "Зачет по физре",
-            description: "Жду всех с зачетками",
-            nameCreator: "Комилов Виктор Матвеевич",
-            idUser: 1,
-            numberOfPeople: 101
-            },
-            {
-            id: 6, 
-            name: "Мои учебные",
-            description: "Если уже сходили в здравпункт и подтвердили справку, приходите в деканат",
-            nameCreator: "Горин Николай Олегович",
-            idUser: 5,
-            numberOfPeople: 55
-            }
-        ]
-        """.trimIndent()
+    private fun checkFilter(AccessBtns : Boolean, TypeBtns : Boolean, turnAdapter: TurnAdapter, queue : RequestQueue){
+        val errorNotFound = findViewById<TextView>(R.id.turnNotFoundError)
+        val RecView = findViewById<RecyclerView>(R.id.turnsRec)
+        RecView.visibility = View.GONE
+        val typeAccessList : Boolean;
+        val typeAccess : String
 
-        val dostupJson = """
-       [
-           {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 5, 
-            name: "Зачет по физре",
-            description: "Жду всех с зачетками",
-            nameCreator: "Комилов Виктор Матвеевич",
-            idUser: 1,
-            numberOfPeople: 101
-            },
-            {
-            id: 6, 
-            name: "Учебные доступные",
-            description: "Если уже сходили в здравпункт и подтвердили справку, приходите в деканат",
-            nameCreator: "Горин Николай Олегович",
-            idUser: 5,
-            numberOfPeople: 55
-            }
-        ]
-        """.trimIndent()
-
-        val myJsonforOrganisations = """
-        [ 
-            {
-                id: 1, 
-                name: "Военкомат",
-                description: "Берите с собой ручки и ножки!",
-                nameCreator: "Военный комиссар",
-                idUser: 1,
-                numberOfPeople: 5
-            }, 
-            {
-                id: 2, 
-                name: "Деканат Отчисления",
-                description: "Стучитесь и будьте культурными!", 
-                nameCreator: "Холод Иван Иванович", 
-                idUser: 4,
-                numberOfPeople: 36
-            },
-            
-            {
-            id: 3, 
-            name: "Мои огранизацонные",
-            description: "Бахилы с собой иметь всем!!!!!!!!!!!",
-            nameCreator: "Глав врач",
-            idUser: 5,
-            numberOfPeople: 33
-            }
-        ]
-        """.trimIndent()
-
-        val dostupJsonforOrganisations = """
-       [
-           {
-            id: 1, 
-            name: "Дополнительная сессия",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2,
-            name: "Доступные организацонные",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            
-            }
-        ]
-        """.trimIndent()
-
-        val gson = Gson()
-        val MyTurns = gson?.fromJson(myJson, Array<Turn>::class.java)?.toList()
-        val InDostupTurns = gson?.fromJson(dostupJson, Array<Turn>::class.java)?.toList()
-        val MyTurnsforOrganisations =
-            gson?.fromJson(myJsonforOrganisations, Array<Turn>::class.java)?.toList()
-        val InDostupTurnsforOrganisations =
-            gson?.fromJson(dostupJsonforOrganisations, Array<Turn>::class.java)?.toList()
-
-        var list : List<Turn>? = null
-        var type = true
-        if (AccessBtns && TypeBtns) {
-            list = MyTurns
-            type=true
-        } else if (AccessBtns && !TypeBtns) {
-            list = MyTurnsforOrganisations
-            type=true
-        } else if (!AccessBtns && TypeBtns) {
-            list = InDostupTurns
-            type=false
-        } else if (!AccessBtns && !TypeBtns) {
-            list = InDostupTurnsforOrganisations
-            type=false
+        if (AccessBtns){
+            typeAccess="participates"
+            typeAccessList=true
         }
-        if (list != null) {
-            pullList(turnAdapter, list,type)
+        else{
+            typeAccess="available"
+            typeAccessList=false
         }
-    }
 
-
-
-    private fun pullList(turnAdapter : TurnAdapter, list : List<Turn>, type : Boolean){
-        val turns = mutableListOf<Turn>()
-
-        list?.forEach {
-            var turn = Turn(
-                it.id,
-                it.name,
-                it.description,
-                it.creator,
-                it.userId,
-                it.countUsers
-            )
-            turns.add(0, turn)
+        val typeTurn : String = if (TypeBtns){
+            "edu"
+        } else{
+            "org"
         }
-        turnAdapter.setItems(turns, type)
 
+//        if (AccessBtns && TypeBtns) {
+//            type = true;
+//            typeAccess="participates"
+//            typeTurn="edu"
+//        } else if (AccessBtns && !TypeBtns) {
+//            type = true;
+//            typeAccess="participates"
+//            typeTurn="org"
+//        } else if (!AccessBtns && TypeBtns) {
+//            type = false
+//            typeAccess="available"
+//            typeTurn="edu"
+//        } else if (!AccessBtns && !TypeBtns) {
+//            type = false
+//            typeAccess="available"
+//            typeTurn="org"
+//        }
+        errorNotFound.visibility = View.GONE;
+        val url2 = "http://90.156.229.190:8089/turn?userId=$logged&type=$typeTurn&access=$typeAccess";
+        val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
+        val requestTurnGet = object : StringRequest(
+            Request.Method.GET,
+            url2,
+            {
+                    result ->
+                run {
+                    val gson = Gson()
+                    if (result.equals("[]")){
+                        errorNotFound.visibility = View.VISIBLE;
+                    }
+//                    val c = result.toByteArray(Charsets.ISO_8859_1)
+//                    val turns = c.toString(Charsets.UTF_8)
+                    val type = object : TypeToken<MutableList<Turn>>(){}.type
+                    val turnsList : MutableList<Turn>? = gson?.fromJson(result, type);
+                    if (turnsList!=null){
+                        turnAdapter.setItems(turnsList, typeAccessList)
+                        RecView.visibility = View.VISIBLE
+                    }
+                    else{
+                        RecView.visibility = View.GONE
+                        errorNotFound.visibility = View.VISIBLE;
+                    }
+                    progress.visibility = View.GONE
+                }
+            },
+            {
+                    error -> run {
+                    Log.d("MYYY", "$error")
+                    errorNotFound.visibility = View.VISIBLE;
+                }
+            }
+        ){
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+        }
+        queue.add(requestTurnGet)
 
 
     }

@@ -104,7 +104,7 @@ class EditTurnActivity : AppCompatActivity() {
                     if (s.length == 4 && isNumeric(s)){
                         warningText1.visibility = View.GONE
 
-                        val g = AllowGroup(0, s.toInt())
+                        val g = AllowGroup(0, s)
                         allowGroupAdapter.addAllowGroup(g)
 
                         //allowGroupAdapter.itemCount
