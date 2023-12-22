@@ -12,14 +12,19 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.eturn.adapter.TurnAdapter
 import com.eturn.data.Turn
+import com.eturn.data.User
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 //import okhttp3.Call
 //import okhttp3.Callback
 //import okhttp3.OkHttpClient
@@ -28,9 +33,9 @@ import com.google.gson.Gson
 
 
 class MainActivity : AppCompatActivity() {
-    val loggedUserId = 5
+    var loggedUserId = 1L
+    var logged = 1
     val turnAdapter = TurnAdapter(this, loggedUserId)
-    val turnList = mutableListOf<Turn>()
     override fun onResume() {
         super.onResume()
 
@@ -40,79 +45,48 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val ex = ExampleTry()
-//        ex.run()
 
-//        Thread {
-
-//            val client = OkHttpClient()
-//
-//            val request = Request.Builder()
-//                .url("http://90.156.229.190:8089/user/1")
-//                .build()
-//
-//            client.newCall(request).enqueue(object : Callback {
-//                override fun onFailure(call: Call, e: IOException) {
-//                    e.printStackTrace()
-//                }
-//
-//                override fun onResponse(call: Call, response: Response) {
-//                    response.use {
-//                        if (!response.isSuccessful) {
-//                            throw IOException(
-//                                "Запрос к серверу не был успешен:" +
-//                                        " ${response.code} ${response.message}"
-//                            )
-//                        }
-//                        // пример получения всех заголовков ответа
-//                        for ((name, value) in response.headers) {
-//                            Log.i("MYYY", "$name: $value")
-//                        }
-//                        // вывод тела ответа
-//                        Log.e("MYYY", response.body!!.string())
-//                    }
-//                }
-//            })
-//        }.start()
-
-            val url = "http://90.156.229.190:8089/user/1";
+            var url = "http://90.156.229.190:8089/user/$logged";
             val queue = Volley.newRequestQueue(applicationContext)
-            val request = StringRequest(
+
+            val request = object : StringRequest(
+                Request.Method.GET,
                 url,
                 {
-                    result -> Log.d("MYYY", "$result")
+                    result ->
+                    run {
+                        val gson = Gson()
+//                        val c = result.toByteArray(Charsets.ISO_8859_1)
+//                        val user = c.toString(Charsets.UTF_8)
+                        val userInfo = gson?.fromJson(result, User::class.java);
+                        if (userInfo != null) {
+                            loggedUserId = userInfo.id
+                            val nameText = findViewById<TextView>(R.id.userNameMainTxt)
+//                            nameText.text = result;
+                            nameText.text = userInfo.name;
+
+                            val roleText = findViewById<TextView>(R.id.statusMainTxt)
+                            roleText.text = userInfo.role
+
+                            val groupText = findViewById<TextView>(R.id.groupMainTxt)
+                            groupText.text = userInfo.group
+                        };
+                    }
                 },
                 {
                     error -> Log.d("MYYY", "$error")
                 }
-            )
+            ){
+                override fun getBodyContentType(): String {
+                    return "application/json; charset=utf-8"
+                }
+//                override fun getParams(): MutableMap<String, String>? {
+//                    val params = HashMap<String, String>()
+//                    params.put("Content-type","application/json; charset=utf-8")
+//                    return params
+//                }
+            }
             queue.add(request)
-
-
-//        OkHttpClient().newCall(request)
-//            .enqueue(object : Callback {
-//
-//                override fun onFailure(call: Call, e: IOException) {
-//                    val text = "Нихуя"
-//                    val duration = Toast.LENGTH_SHORT
-//
-//                    val toast = Toast.makeText(applicationContext, text, duration)
-//                    toast.show()
-//                }
-//
-//                override fun onResponse(call: Call, response: Response) {
-//                    val text = "РАБОТАЕТ СУКА, РАБОТАЕТ!"
-//                    val duration = Toast.LENGTH_SHORT
-//
-//                    val toast = Toast.makeText(applicationContext, text, duration)
-//                    toast.show()
-//                }
-//            })
-
-
-
-
-
 
         var AccessBtns = true
         var TypeBtns = true
@@ -229,380 +203,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-        val myJson = """
-        [ 
-            {
-                id: 1, 
-                name: "Зачетная неделя",
-                description: "Берите с собой ручки!",
-                nameCreator: "Железняк Александр Владимирович",
-                idUser: 1,
-                numberOfPeople: 46
-            }, 
-            {
-                id: 2, 
-                name: "Деканат Отчисления",
-                description: "Стучитесь и будьте культурными!", 
-                nameCreator: "Холод Иван Иванович", 
-                idUser: 4,
-                numberOfPeople: 36
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 5, 
-            name: "Зачет по физре",
-            description: "Жду всех с зачетками",
-            nameCreator: "Комилов Виктор Матвеевич",
-            idUser: 1,
-            numberOfPeople: 101
-            },
-            {
-            id: 6, 
-            name: "Мои учебные",
-            description: "Если уже сходили в здравпункт и подтвердили справку, приходите в деканат",
-            nameCreator: "Горин Николай Олегович",
-            idUser: 5,
-            numberOfPeople: 55
-            }
-        ]
-        """.trimIndent()
-
-        val dostupJson = """
-       [
-           {
-            id: 1, 
-            name: "Физика Экзамен",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2, 
-            name: "Здравпункт",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            },
-            {
-            id: 3, 
-            name: "Помощь по ТОЭ",
-            description: "Подходите в коворкинг, помогаю с задачками по ТОЭ",
-            nameCreator: "Кадун Никита Андреевич",
-            idUser: 5,
-            numberOfPeople: 77
-            },
-            {
-            id: 4, 
-            name: "Экзамен ТОЭ",
-            description: "Те, кто не выполнил ИДЗ, на экзамен не допускаются",
-            nameCreator: "Самоваров Иван Кириллович",
-            idUser: 1,
-            numberOfPeople: 61
-            },
-            {
-            id: 5, 
-            name: "Зачет по физре",
-            description: "Жду всех с зачетками",
-            nameCreator: "Комилов Виктор Матвеевич",
-            idUser: 1,
-            numberOfPeople: 101
-            },
-            {
-            id: 6, 
-            name: "Учебные доступные",
-            description: "Если уже сходили в здравпункт и подтвердили справку, приходите в деканат",
-            nameCreator: "Горин Николай Олегович",
-            idUser: 5,
-            numberOfPeople: 55
-            }
-        ]
-        """.trimIndent()
-
-        val myJsonforOrganisations = """
-        [ 
-            {
-                id: 1, 
-                name: "Военкомат",
-                description: "Берите с собой ручки и ножки!",
-                nameCreator: "Военный комиссар",
-                idUser: 1,
-                numberOfPeople: 5
-            }, 
-            {
-                id: 2, 
-                name: "Деканат Отчисления",
-                description: "Стучитесь и будьте культурными!", 
-                nameCreator: "Холод Иван Иванович", 
-                idUser: 4,
-                numberOfPeople: 36
-            },
-            
-            {
-            id: 3, 
-            name: "Мои огранизацонные",
-            description: "Бахилы с собой иметь всем!!!!!!!!!!!",
-            nameCreator: "Глав врач",
-            idUser: 5,
-            numberOfPeople: 33
-            }
-        ]
-        """.trimIndent()
-
-        val dostupJsonforOrganisations = """
-       [
-           {
-            id: 1, 
-            name: "Дополнительная сессия",
-            description: "Зачетки не забудьте.",
-            nameCreator: "Леднев Михаил Георгиевич",
-            idUser: 2,
-            numberOfPeople: 49
-            },
-            {
-            id: 2,
-            name: "Доступные организацонные",
-            description: "Приносите форму М-54, справку о прививках и остальные документы.",
-            nameCreator: "Сергеева Анна Анатольевна",
-            idUser: 3,
-            numberOfPeople: 32
-            
-            }
-        ]
-        """.trimIndent()
-
-        val gson = Gson()
-        val MyTurns = gson?.fromJson(myJson, Array<Turn>::class.java)?.toList()
-        val InDostupTurns = gson?.fromJson(dostupJson, Array<Turn>::class.java)?.toList()
-        val MyTurnsforOrganisations =
-            gson?.fromJson(myJsonforOrganisations, Array<Turn>::class.java)?.toList()
-        val InDostupTurnsforOrganisations =
-            gson?.fromJson(dostupJsonforOrganisations, Array<Turn>::class.java)?.toList()
         val recyclerView: RecyclerView = findViewById(R.id.turnsRec)
         recyclerView.setHasFixedSize(true)
         val RecView = findViewById<RecyclerView>(R.id.turnsRec)
@@ -612,13 +212,33 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = turnAdapter
 
-        MyTurns?.forEach {
-            var turn =
-                Turn(it.id, it.name, it.description, it.nameCreator, it.idUser, it.numberOfPeople)
-            turnList.add(0, turn)
+        var url2 = "http://90.156.229.190:8089/turn?userId=$logged&type=edu&access=participates";
+        val requestTurnGet = object : StringRequest(
+            Request.Method.GET,
+            url2,
+            {
+                    result ->
+                run {
+                    val gson = Gson()
+//                    val c = result.toByteArray(Charsets.ISO_8859_1)
+//                    val turns = c.toString(Charsets.UTF_8)
+                    val type = object : TypeToken<MutableList<Turn>>(){}.type
+                    val turnsList : MutableList<Turn>? = gson?.fromJson(result, type);
+                    if (turnsList!=null){
+                        turnAdapter.setItems(turnsList, true)
+                        RecView.visibility = View.VISIBLE
+                    }
+                }
+            },
+            {
+                    error -> Log.d("MYYY", "$error")
+            }
+        ){
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
         }
-        turnAdapter.setItems(turnList, true)
-        RecView.visibility = View.VISIBLE
+        queue.add(requestTurnGet)
         recyclerView.isNestedScrollingEnabled = false;
 
     }
@@ -836,9 +456,9 @@ class MainActivity : AppCompatActivity() {
                 it.id,
                 it.name,
                 it.description,
-                it.nameCreator,
-                it.idUser,
-                it.numberOfPeople
+                it.creator,
+                it.userId,
+                it.countUsers
             )
             turns.add(0, turn)
         }

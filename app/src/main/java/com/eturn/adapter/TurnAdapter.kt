@@ -15,7 +15,7 @@ import com.eturn.TurnActivity
 import com.eturn.data.Turn
 
 
-public class TurnAdapter(private val context: Context, private val id_user : Int) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
+public class TurnAdapter(private val context: Context, private val id_user : Long) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
     private var turnList = ArrayList<Turn>();
     private var Type : Boolean = false;
 
@@ -44,22 +44,22 @@ public class TurnAdapter(private val context: Context, private val id_user : Int
     override fun onBindViewHolder(holder: turnHolder, position: Int) {
         val turn : Turn = turnList[position] //заполнение данных в эл списка
         holder.nameTextView.text = turn.name
-        if (turn.idUser==id_user){
+        if (turn.userId.toLong()==id_user){
             holder.nameTextView.setTextColor(holder.getThisColor(context))
         }
         holder.Description.text ="Подробнее: " + turn.description
-        holder.Author.text = turn.nameCreator
+        holder.Author.text = turn.creator
         val People: Array<String> = arrayOf("человек","человек","человека","человека","человека","человек","человек","человек","человек","человек")
-        holder.Number.text = turn.numberOfPeople.toString()+" "+People[turn.numberOfPeople % 10]
+        holder.Number.text = turn.countUsers.toString()+" "+People[turn.countUsers % 10]
         if (Type){
             holder.ClickonCW.setOnClickListener(){
                 val intent = Intent(context, TurnActivity::class.java)
                 intent.addCategory("CurrentTurn")
                 intent.putExtra("Name",turn.name)
-                intent.putExtra("Author",turn.nameCreator)
+                intent.putExtra("Author",turn.creator)
                 intent.putExtra("Description",turn.description)
-                intent.putExtra("NumberOfPeople",turn.numberOfPeople)
-                intent.putExtra("IdCreator",turn.idUser)
+                intent.putExtra("NumberOfPeople",turn.countUsers)
+                intent.putExtra("IdCreator",turn.userId)
                 intent.putExtra("CurrentUser", id_user)
                 context.startActivity(intent)
             }
@@ -76,10 +76,10 @@ public class TurnAdapter(private val context: Context, private val id_user : Int
                 val intent = Intent(context, TurnActivity::class.java)
                 intent.addCategory("CurrentTurn")
                 intent.putExtra("Name",turn.name)
-                intent.putExtra("Author",turn.nameCreator)
+                intent.putExtra("Author",turn.creator)
                 intent.putExtra("Description",turn.description)
-                intent.putExtra("NumberOfPeople",turn.numberOfPeople)
-                intent.putExtra("IdCreator",turn.idUser)
+                intent.putExtra("NumberOfPeople",turn.countUsers)
+                intent.putExtra("IdCreator",turn.userId)
                 intent.putExtra("CurrentUser", id_user)
                 context.startActivity(intent)
 
