@@ -52,6 +52,11 @@ class EnterActivity : AppCompatActivity() {
 
         EnterButton.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
+
+            val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+            val editor = sPref.edit()
+            editor.putLong("USER_ID", 1)
+            editor.apply()
             if(string1 == "admin" && string2 == "admin"){
                 startActivity(intent)
             }

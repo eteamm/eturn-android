@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.eturn.R
 import com.eturn.TurnActivity
 import com.eturn.data.Turn
+import android.text.TextWatcher
 
 
 public class TurnAdapter(private val context: Context, private val id_user : Long) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
@@ -53,14 +55,11 @@ public class TurnAdapter(private val context: Context, private val id_user : Lon
         holder.Number.text = turn.countUsers.toString()+" "+People[turn.countUsers % 10]
         if (Type){
             holder.ClickonCW.setOnClickListener(){
+                val sPref = context.getSharedPreferences("UserAndTurnInfo", AppCompatActivity.MODE_PRIVATE)
+                val editor = sPref.edit()
+                editor.putLong("TURN_ID", turn.id)
+                editor.apply()
                 val intent = Intent(context, TurnActivity::class.java)
-                intent.addCategory("CurrentTurn")
-                intent.putExtra("Name",turn.name)
-                intent.putExtra("Author",turn.creator)
-                intent.putExtra("Description",turn.description)
-                intent.putExtra("NumberOfPeople",turn.countUsers)
-                intent.putExtra("IdCreator",turn.userId)
-                intent.putExtra("CurrentUser", id_user)
                 context.startActivity(intent)
             }
             holder.Join.visibility = View.GONE
@@ -74,15 +73,11 @@ public class TurnAdapter(private val context: Context, private val id_user : Lon
             holder.Description.visibility = View.VISIBLE
             holder.ButtonTextView.setOnClickListener(){
                 val intent = Intent(context, TurnActivity::class.java)
-                intent.addCategory("CurrentTurn")
-                intent.putExtra("Name",turn.name)
-                intent.putExtra("Author",turn.creator)
-                intent.putExtra("Description",turn.description)
-                intent.putExtra("NumberOfPeople",turn.countUsers)
-                intent.putExtra("IdCreator",turn.userId)
-                intent.putExtra("CurrentUser", id_user)
                 context.startActivity(intent)
-
+                val sPref = context.getSharedPreferences("UserAndTurnInfo", AppCompatActivity.MODE_PRIVATE)
+                val editor = sPref.edit()
+                editor.putLong("TURN_ID", turn.id)
+                editor.apply()
             }
 
         }

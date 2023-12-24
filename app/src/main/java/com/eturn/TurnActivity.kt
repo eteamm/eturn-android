@@ -3,6 +3,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,8 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.eturn.adapter.PositionsAdapter
 import com.eturn.data.Positions
+import com.eturn.data.Turn
+import com.eturn.data.User
 import com.eturn.data.YourPosition
 import com.google.gson.Gson
 import org.w3c.dom.Text
@@ -141,63 +147,56 @@ class TurnActivity : AppCompatActivity() {
         val myTurnNumberOfPeople: TextView = findViewById(R.id.numberPeopletxt)
         val myTurnPeopleTextView: TextView = findViewById(R.id.peopleBoxtxt)
         val category = intent.categories
-        val name : String?
-        val desc : String?
+        val name = "f "
+        val desc = "ff "
         val author : String?
-        var loggedUserId = 1
-        var creatorUserId = 1
+
+        val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+        val idMy = sPref.getLong("USER_ID",0)
+        val idTurnThis = sPref.getLong("TURN_ID",0)
+        var loggedUserId = idMy
+        var creatorUserId = 0L
+
+        var url = "http://90.156.229.190:8089/turn/$idTurnThis";
+        val queue = Volley.newRequestQueue(applicationContext)
+        val request = object : StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                    result ->
+                run {
+                    val gson = Gson()
+//                        val c = result.toByteArray(Charsets.ISO_8859_1)
+//                        val user = c.toString(Charsets.UTF_8)
+                    val turnInfo = gson?.fromJson(result, Turn::class.java);
+                    if (turnInfo != null) {
+                        myTurnName.text = turnInfo.name
+                        myTurnAuthor.text = turnInfo.creator
+                        if (!turnInfo.description.isEmpty()){
+                            val description = resources.getString(R.string.descriptionBoxTurnCurrent,turnInfo.description)
+                            myTurnDescription.text = description
+                        }
+                        myTurnNumberOfPeople.text = turnInfo.countUsers.toString()
+                        myTurnPeopleTextView.text = People[turnInfo.countUsers % 10]
+                        creatorUserId = turnInfo.userId
+                    }
+
+                }
+            },
+            {
+                    error -> Log.d("MYYY", "$error")
+            }
+        ){
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+        }
+        queue.add(request)
+
         var gsonMainqueue = Gson()
         var responseMainqueue = gsonMainqueue?.fromJson(myJson, Array<Positions>::class.java)?.toList()
         var count = 0
         var admin = 0 // модератор!!!
-        //
-        if (category.contains("CreateTurn")){
-            name = intent.getStringExtra("NameTurn")
-            desc = intent.getStringExtra("About")
-            val authorID = intent.getIntExtra("Author",0)
-            author = "Васильев Андрей Антонович"
-            myTurnName.text = name
-            myTurnAuthor.text = author
-            if (desc != null){
-                if (!desc.isEmpty()){
-                    val description = resources.getString(R.string.descriptionBoxTurnCurrent,desc)
-                    myTurnDescription.text = description
-                }
-            }
-            loggedUserId = authorID
-            creatorUserId = authorID
-            myTurnNumberOfPeople.text = "1"
-            myTurnPeopleTextView.text = People[1]
-        }
-        else if (category.contains("EditTurn")) {
-            name = intent.getStringExtra("Top")
-            desc = intent.getStringExtra("About")
-            myTurnName.text = name
-            if (desc != null){
-                if (!desc.isEmpty()){
-                    val description = resources.getString(R.string.descriptionBoxTurnCurrent,desc)
-                    myTurnDescription.text = description
-                }
-            }
-        }
-        else if(category.contains("CurrentTurn")){
-            name = intent.getStringExtra("Name")
-            desc = intent.getStringExtra("Description")
-            author = intent.getStringExtra("Author")
-            myTurnName.text = name
-            myTurnAuthor.text = author
-            if (desc != null){
-                if (!desc.isEmpty()){
-                    val description = resources.getString(R.string.descriptionBoxTurnCurrent,desc)
-                    myTurnDescription.text = description
-                }
-            }
-            myTurnNumberOfPeople.text = intent.getIntExtra("NumberOfPeople",0).toString()
-            myTurnPeopleTextView.text = People[intent.getIntExtra("NumberOfPeople",0)%10]
-            loggedUserId = intent.getIntExtra("CurrentUser",0)
-            creatorUserId = intent.getIntExtra("IdCreator",0)
-
-        }
         //
         if (loggedUserId==creatorUserId){
             admin = 2
@@ -228,19 +227,11 @@ class TurnActivity : AppCompatActivity() {
         recyclerView.adapter = positionsAdapter
         positionsAdapter.setItems(positionsList, loggedUserId, false) // добавлояем bool переменную
         val pos: Array<String> = arrayOf("позиций","позиция","позиции","позиции","позиции","позиций","позиций","позиций","позиций","позиций")
-        val posCount = positionsAdapter.getLast(loggedUserId)
-        val hintPos = if (posCount==0) {
-            resources.getString(R.string.hintToPositionTurn1)
-        } else if (posCount==-1){
-            resources.getString(R.string.hintToPositionTurn2)
-        } else {
-            resources.getString(R.string.hintToPositionTurn,posCount,pos[posCount%10])
-        }
+
         //
-        if (loggedUserId == admin) {
             ShareBtn1.visibility = View.GONE
 
-        }
+
         if (loggedUserId == creatorUserId) {
             Pencil.visibility = View.VISIBLE
         }

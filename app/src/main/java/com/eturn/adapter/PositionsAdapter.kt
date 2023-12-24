@@ -16,7 +16,7 @@ import com.eturn.data.Positions
 public class PositionsAdapter(private val context: Context, val admin : Int) : RecyclerView.Adapter<PositionsAdapter.HolderPositions>() {
 
     private var ListPositions = ArrayList<Positions>()
-    private var idCurrent = 0
+    private var idCurrent = 0L
     private var isFirst = false
     class HolderPositions(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userNameTextView: TextView = itemView.findViewById(R.id.numberTxt)
@@ -107,21 +107,8 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         return 20-last
     }
 
-    fun getLast(id : Int):Int{
-        var count=0
-        var b = false
-        ListPositions.forEach {
-            if(it.idUser==id){
-                b = true
-                return@forEach
-            }
-            count++
-        }
-        if (!b) count=-1
-        return count
-    }
 
-    fun setItems(item: MutableList<Positions>, idUser : Int, isF : Boolean) {
+    fun setItems(item: MutableList<Positions>, idUser : Long, isF : Boolean) {
         isFirst = isF
         ListPositions.clear()
         ListPositions.addAll(item)

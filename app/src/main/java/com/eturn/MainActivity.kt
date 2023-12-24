@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,7 @@ import com.google.gson.reflect.TypeToken
 
 class MainActivity : AppCompatActivity() {
     var loggedUserId = 1L
-    var logged = 1
+    var logged = 1L
     val turnAdapter = TurnAdapter(this, loggedUserId)
     override fun onResume() {
         super.onResume()
@@ -48,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+        val idMy = sPref.getLong("USER_ID",0)
+        logged = idMy
 
              val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
             var url = "http://90.156.229.190:8089/user/$logged";
@@ -229,6 +233,10 @@ class MainActivity : AppCompatActivity() {
                     result ->
                 run {
                     val gson = Gson()
+                    if (result.equals("[]")){
+                        progress.visibility = View.GONE
+                        errorNotFound.visibility = View.VISIBLE;
+                    }
 //                    val c = result.toByteArray(Charsets.ISO_8859_1)
 //                    val turns = c.toString(Charsets.UTF_8)
                     val type = object : TypeToken<MutableList<Turn>>(){}.type
@@ -241,6 +249,7 @@ class MainActivity : AppCompatActivity() {
                         errorNotFound.visibility = View.VISIBLE;
                     }
                     progress.visibility = View.GONE
+
                 }
             },
             {
@@ -307,6 +316,7 @@ class MainActivity : AppCompatActivity() {
                     val gson = Gson()
                     if (result.equals("[]")){
                         errorNotFound.visibility = View.VISIBLE;
+                        progress.visibility = View.GONE
                     }
 //                    val c = result.toByteArray(Charsets.ISO_8859_1)
 //                    val turns = c.toString(Charsets.UTF_8)

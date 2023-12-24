@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,9 @@ class CreateTurnActivity : AppCompatActivity() {
         val cancelButton = findViewById<Button>(R.id.backBtnCreate)
         val warningText1 : TextView = findViewById(R.id.deleteOneGroup)
 
-        val idUser = intent.getIntExtra("idUser",-1);
+        val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+        val idMy = sPref.getLong("USER_ID",0)
+        val idUser = idMy
         val type : Boolean = intent.getBooleanExtra("type", true);
         val queue = Volley.newRequestQueue(applicationContext)
 
@@ -81,7 +84,6 @@ class CreateTurnActivity : AppCompatActivity() {
 
                 var typeString: String = if(type) "EDU"
                 else "ORG"
-                var strNull : String = null.toString();
                 jsonBody.addProperty("turnType", typeString)
                 jsonBody.addProperty("turnAccess", "FOR_ALLOWED_GROUPS")
                 jsonBody.add("allowedFaculties", JsonNull.INSTANCE)
@@ -107,7 +109,6 @@ class CreateTurnActivity : AppCompatActivity() {
                 val requestBody = jsonBody.toString()
 
                 var idTurn = 0L
-                var actions = 0
                 val url = "http://90.156.229.190:8089/turn";
                 val request = object : StringRequest(
                     Request.Method.POST,
@@ -116,9 +117,12 @@ class CreateTurnActivity : AppCompatActivity() {
                             result ->
                         run {
                             idTurn = result.toLong()
-                            actions++
+
+
                             val url2 =
                                 "http://90.156.229.190:8089/member?userId=$idUser&turnId=$idTurn&accessMemberEnum=CREATOR";
+//                            Toast.makeText(applicationContext, url2, Toast.LENGTH_LONG).show()
+
                             val request2 = object : StringRequest(
                                 Request.Method.POST,
                                 url2,
@@ -131,11 +135,12 @@ class CreateTurnActivity : AppCompatActivity() {
                                             {
                                                     result2 ->
                                                 run {
+                                                    val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+                                                    val editor = sPref.edit()
+                                                    editor.putLong("TURN_ID", idTurn)
+                                                    editor.apply()
                                                     val intent1 = Intent(this, TurnActivity::class.java)
                                                     intent1.addCategory("CreateTurn")
-                                                    intent1.putExtra("NameTurn", nameTurn.text.toString())
-                                                    intent1.putExtra("About", descTurn.text.toString())
-                                                    intent1.putExtra("Author", idUser)
                                                     startActivity(intent1)
                                                     finish()
                                                 }
