@@ -26,20 +26,22 @@ class MembersActivity : AppCompatActivity() {
         var gson = Gson()
         var ADMINS = gson?.fromJson(Admins,Array<Member>::class.java)?.toList()
         var USERS = gson?.fromJson(Users, Array<Member>::class.java)?.toList()
+        var BLOCKED = gson?.fromJson(Users, Array<Member>::class.java)?.toList()
 
 
         val recyclerAdmins: RecyclerView = findViewById(R.id.AdminsRec)
         val recyclerUsers: RecyclerView = findViewById(R.id.UsersRec)
-        //val recyclerBlocked: RecyclerView = findViewById(R.id.BlockedRec)
+        val recyclerBlocked: RecyclerView = findViewById(R.id.BlockedRec)
         recyclerAdmins.layoutManager = LinearLayoutManager(this)
         recyclerUsers.layoutManager = LinearLayoutManager(this)
-        //recyclerBlocked.layoutManager = LinearLayoutManager(this)
+        recyclerBlocked.layoutManager = LinearLayoutManager(this)
         val AdminsAdapter = MemberAdapter(this,1)
         val UsersAdapter = MemberAdapter(this,2)
-        //val BlockedAdapter = MemberAdapter(this,3)
+        val BlockedAdapter = MemberAdapter(this,3)
 
         recyclerAdmins.adapter = AdminsAdapter
         recyclerUsers.adapter = UsersAdapter
+        recyclerBlocked.adapter = BlockedAdapter
         val turnList = mutableListOf<Member>()
         ADMINS?.forEach {
             var memberlist = Member(it.id, it.Name, it.idGroup, it.Status)
@@ -53,6 +55,13 @@ class MembersActivity : AppCompatActivity() {
             turnList2.add(0, memberlist)
         }
         UsersAdapter.setItems(turnList2)
+
+        val turnList3 = mutableListOf<Member>()
+        BLOCKED?.forEach {
+            var memberlist = Member(it.id, it.Name, it.idGroup, it.Status)
+            turnList3.add(0, memberlist)
+        }
+        BlockedAdapter.setItems(turnList3)
 
         val adminsText = resources.getString(R.string.AdminsQuantity,AdminsAdapter.itemCount)
         val admins : TextView = findViewById(R.id.admins)
@@ -128,6 +137,11 @@ class MembersActivity : AppCompatActivity() {
             HideButton1.visibility = View.VISIBLE
             recyclerAdmins.visibility = View.VISIBLE
             recyclerUsers.visibility = View.GONE
+            recyclerBlocked.visibility = View.GONE
+            HideButton2.visibility = View.GONE
+            HideButton3.visibility = View.GONE
+            ShowButton2.visibility = View.VISIBLE
+            ShowButton3.visibility = View.VISIBLE
         }
 
         HideButton1.setOnClickListener {
@@ -141,6 +155,11 @@ class MembersActivity : AppCompatActivity() {
             HideButton2.visibility = View.VISIBLE
             recyclerUsers.visibility = View.VISIBLE
             recyclerAdmins.visibility = View.GONE
+            recyclerBlocked.visibility = View.GONE
+            HideButton1.visibility = View.GONE
+            HideButton3.visibility = View.GONE
+            ShowButton1.visibility = View.VISIBLE
+            ShowButton3.visibility = View.VISIBLE
         }
 
         HideButton2.setOnClickListener {
@@ -152,14 +171,19 @@ class MembersActivity : AppCompatActivity() {
         ShowButton3.setOnClickListener {
             ShowButton3.visibility = View.GONE
             HideButton3.visibility = View.VISIBLE
-            //recyclerUsers.visibility = View.VISIBLE
-            //recyclerAdmins.visibility = View.GONE
+            recyclerBlocked.visibility = View.VISIBLE
+            recyclerUsers.visibility = View.GONE
+            recyclerAdmins.visibility = View.GONE
+            HideButton1.visibility = View.GONE
+            HideButton2.visibility = View.GONE
+            ShowButton1.visibility = View.VISIBLE
+            ShowButton2.visibility = View.VISIBLE
         }
 
         HideButton3.setOnClickListener {
             HideButton3.visibility = View.GONE
             ShowButton3.visibility = View.VISIBLE
-            //recyclerUsers.visibility = View.GONE
+            recyclerBlocked.visibility = View.GONE
         }
 
     }
