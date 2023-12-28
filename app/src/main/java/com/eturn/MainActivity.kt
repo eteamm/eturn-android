@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
              val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
             var url = "http://90.156.229.190:8089/user/$logged";
             val queue = Volley.newRequestQueue(applicationContext)
-
+// GET POST PUT DELETE
             val request = object : StringRequest(
                 Request.Method.GET,
                 url,

@@ -15,6 +15,10 @@ import com.eturn.R
 import com.eturn.TurnActivity
 import com.eturn.data.Turn
 import android.text.TextWatcher
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 
 
 public class TurnAdapter(private val context: Context, private val id_user : Long) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
@@ -72,12 +76,50 @@ public class TurnAdapter(private val context: Context, private val id_user : Lon
             holder.ButtonTextView.visibility = View.VISIBLE
             holder.Description.visibility = View.VISIBLE
             holder.ButtonTextView.setOnClickListener(){
-                val intent = Intent(context, TurnActivity::class.java)
-                context.startActivity(intent)
-                val sPref = context.getSharedPreferences("UserAndTurnInfo", AppCompatActivity.MODE_PRIVATE)
-                val editor = sPref.edit()
-                editor.putLong("TURN_ID", turn.id)
-                editor.apply()
+                val queue = Volley.newRequestQueue(context)
+                val idTurn = turn.id;
+                val url2 =
+                    "http://90.156.229.190:8089/member?userId=$id_user&turnId=$idTurn&accessMemberEnum=MEMBER";
+
+                val request2 = object : StringRequest(
+                    Request.Method.POST,
+                    url2,
+                    { result1 ->
+                        run {
+                            val url3 = "http://90.156.229.190:8089/turn/new_member?userId=$id_user&turnId=$idTurn";
+                            val request3 = object : StringRequest(
+                                Request.Method.PUT,
+                                url3,
+                                {
+                                        result2 ->
+                                    run {
+                                        val intent = Intent(context, TurnActivity::class.java)
+                                        context.startActivity(intent)
+                                        val sPref = context.getSharedPreferences("UserAndTurnInfo", AppCompatActivity.MODE_PRIVATE)
+                                        val editor = sPref.edit()
+                                        editor.putLong("TURN_ID", turn.id)
+                                        editor.apply()
+                                    }
+                                },
+                                {
+                                        error -> Log.d("MYYY", error.toString())
+                                }
+                            ){
+                                override fun getBodyContentType(): String {
+                                    return "application/json; charset=utf-8"
+                                }
+                            }
+                            queue.add(request3)
+                        }
+                    },
+                    { error -> Log.d("MYYY", error.toString())
+                    }
+                ) {
+                    override fun getBodyContentType(): String {
+                        return "application/json; charset=utf-8"
+                    }
+                }
+                queue.add(request2)
             }
 
         }

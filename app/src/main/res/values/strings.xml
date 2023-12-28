@@ -73,7 +73,9 @@
     <string name="Login">логин</string>
     <string name="Password">пароль</string>
 
-    <string name="TextAdmin">тестовый доступ можно получить, набрав логин: admin пароль: admin</string>
+    <string name="TextAdmin">тестовый доступ можно получить, набрав\nлогин: admin \nпароль: admin</string>
+    <string name="loginError">Пользователя с таким логином не существует.</string>
+    <string name="passwordError">Пароль введен неправильно.</string>
 
     <string name="Enter2">войти</string>
 

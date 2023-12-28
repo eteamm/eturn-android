@@ -70,6 +70,16 @@
 
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/ErrorLoginEnter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/loginError"
+            android:textColor="@color/warningText"
+            android:visibility="gone" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -95,6 +105,16 @@
                 android:textSize="20sp" />
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/errorPasswordEnter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/passwordError"
+            android:textColor="@color/warningText"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView18"
