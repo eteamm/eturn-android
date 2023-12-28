@@ -117,53 +117,14 @@ class CreateTurnActivity : AppCompatActivity() {
                             result ->
                         run {
                             idTurn = result.toLong()
-
-
-                            val url2 =
-                                "http://90.156.229.190:8089/member?userId=$idUser&turnId=$idTurn&accessMemberEnum=CREATOR";
-//                            Toast.makeText(applicationContext, url2, Toast.LENGTH_LONG).show()
-
-                            val request2 = object : StringRequest(
-                                Request.Method.POST,
-                                url2,
-                                { result1 ->
-                                    run {
-                                        val url3 = "http://90.156.229.190:8089/turn/new_member?userId=$idUser&turnId=$idTurn";
-                                        val request3 = object : StringRequest(
-                                            Request.Method.PUT,
-                                            url3,
-                                            {
-                                                    result2 ->
-                                                run {
-                                                    val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
-                                                    val editor = sPref.edit()
-                                                    editor.putLong("TURN_ID", idTurn)
-                                                    editor.apply()
-                                                    val intent1 = Intent(this, TurnActivity::class.java)
-                                                    intent1.addCategory("CreateTurn")
-                                                    startActivity(intent1)
-                                                    finish()
-                                                }
-                                            },
-                                            {
-                                                    error -> Log.d("MYYY", error.toString())
-                                            }
-                                        ){
-                                            override fun getBodyContentType(): String {
-                                                return "application/json; charset=utf-8"
-                                            }
-                                        }
-                                        queue.add(request3)
-                                    }
-                                },
-                                { error -> Log.d("MYYY", error.toString())
-                                }
-                            ) {
-                                override fun getBodyContentType(): String {
-                                    return "application/json; charset=utf-8"
-                                }
-                            }
-                            queue.add(request2)
+                            val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+                            val editor = sPref.edit()
+                            editor.putLong("TURN_ID", idTurn)
+                            editor.apply()
+                            val intent1 = Intent(this, TurnActivity::class.java)
+                            intent1.addCategory("CreateTurn")
+                            startActivity(intent1)
+                            finish()
                         }
                     },
                     {

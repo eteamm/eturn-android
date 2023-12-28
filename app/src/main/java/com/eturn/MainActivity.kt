@@ -246,6 +246,7 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.visibility = View.VISIBLE
                     }
                     else{
+                        progress.visibility = View.GONE
                         errorNotFound.visibility = View.VISIBLE;
                     }
                     progress.visibility = View.GONE
@@ -253,7 +254,12 @@ class MainActivity : AppCompatActivity() {
                 }
             },
             {
-                    error -> Log.d("MYYY", "$error")
+                    error ->
+                run{
+                    Log.d("MYYY", "$error")
+                    progress.visibility = View.GONE
+                    errorNotFound.visibility = View.VISIBLE;
+                }
             }
         ){
             override fun getBodyContentType(): String {
@@ -328,6 +334,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     else{
                         RecView.visibility = View.GONE
+                        progress.visibility = View.GONE
                         errorNotFound.visibility = View.VISIBLE;
                     }
                     progress.visibility = View.GONE
@@ -337,6 +344,7 @@ class MainActivity : AppCompatActivity() {
                     error -> run {
                     Log.d("MYYY", "$error")
                     errorNotFound.visibility = View.VISIBLE;
+                    progress.visibility = View.GONE
                 }
             }
         ){
