@@ -146,6 +146,7 @@
     <string name="memberAct1">Разжаловать</string>
     <string name="memberAct1.1">Сделать администратором</string>
     <string name="memberAct2">Удалить из очереди</string>
+    <string name="memberAct3">Удалить</string>
 
     <string name="warningText1">Недопустимый номер группы.</string>
     <string name="warningText2">Вы удалили группу или группы из списка допустимых. Все участники, состоящие в этих группах, будут удалены из очереди.</string>

@@ -20,26 +20,6 @@ public class MemberAdapter(private val context: Context, private val type: Int) 
         val memberNameTextView: TextView = itemView.findViewById(R.id.memberNameTxt)
         val imageContextMenuButton: ImageButton = itemView.findViewById(R.id.pointsMember)
         val popupMenu = PopupMenu(itemView.context, imageContextMenuButton)
-//        fun getMenu(context: Context, i: Int) {
-//            val popupMenu = PopupMenu(context, imageContextMenuButton)
-//            popupMenu.inflate(R.menu.member_item)
-//            var action = 0
-//            imageContextMenuButton.setOnClickListener {
-//                popupMenu.show()
-//                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-//                    when (item.itemId) {
-//                        R.id.rename -> {
-//
-//
-//                        }
-//                        R.id.delete ->{
-//                            action = 2
-//                        }
-//                    }
-//                    true
-//                })
-//            }
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberHolder {
@@ -54,11 +34,13 @@ public class MemberAdapter(private val context: Context, private val type: Int) 
 
     override fun onBindViewHolder(holder: MemberHolder, position: Int) {
         val member : Member = memberList[position] //заполнение данных в эл списка
-        if (type==1){
+        if (type == 1){
             holder.popupMenu.inflate(R.menu.member_item)
         }
-        else {
-
+        else if (type == 2){
+            holder.popupMenu.inflate(R.menu.member_item_2)
+        } else {
+            holder.popupMenu.inflate(R.menu.member_item_3)
         }
         holder.imageContextMenuButton.setOnClickListener {
             holder.popupMenu.show()
