@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -330,8 +335,26 @@ class TurnActivity : AppCompatActivity() {
             numberpeopleafter.text = numbr
         }
 
+        val scrollview = findViewById<ScrollView>(R.id.scrollview)
+        val relLayout = findViewById<RelativeLayout>(R.id.relLayout)
+        val linTurnParent = findViewById<LinearLayout>(R.id.LinearTurnParent)
 
 
+        scrollview.viewTreeObserver.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener{
+            override fun onScrollChanged() {
+                var screenHeight : Int = relLayout.height
+                var partOfScroll : Int = (screenHeight.toDouble() * 0.3).toInt()
+                var scrollY: Int = scrollview.scrollY
+                var scrollHeight : Int = linTurnParent.height
+                if(scrollHeight-(scrollY+screenHeight) < partOfScroll){
+                    var positionP = Positions(2,"Yuri", "2391", 3)
+                    val positionsList = mutableListOf<Positions>()
+                    positionsList.add(positionP)
+                    positionsAdapter.addNewPositions(positionsList)
+                }
+            }
+
+        })
 
 
 

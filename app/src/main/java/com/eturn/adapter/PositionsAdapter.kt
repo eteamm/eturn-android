@@ -87,6 +87,13 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         notifyDataSetChanged()
     }
 
+    fun addNewPositions(items: MutableList<Positions>){
+        items.forEach {
+            ListPositions.add(it)
+        }
+        notifyDataSetChanged()
+    }
+
     fun addPosition(position: Positions) : Int{
         var count = ListPositions.size
         var last = 0
