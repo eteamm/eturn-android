@@ -9,13 +9,18 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.eturn.R
-import com.eturn.data.Positions
+import com.eturn.data.Position
+import com.eturn.data.PositionFirst
+import com.google.gson.Gson
 
 
 public class PositionsAdapter(private val context: Context, val admin : Int) : RecyclerView.Adapter<PositionsAdapter.HolderPositions>() {
 
-    private var ListPositions = ArrayList<Positions>()
+    private var ListPositions = ArrayList<Position>()
     private var idCurrent = 0L
     private var isFirst = false
     class HolderPositions(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,12 +48,17 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         return ListPositions.size
     }
 
+    fun addPosition(p : Position){
+        ListPositions.add(p);
+        notifyDataSetChanged()
+    }
+
 
     override fun onBindViewHolder(holder: HolderPositions, position: Int) {
 
-        val positions : Positions = ListPositions[position] //заполнение данных в эл списка
+        val positions : Position = ListPositions[position] //заполнение данных в эл списка
         holder.userNameTextView.text = positions.name
-        var i = 0
+        var i : Int
         if(isFirst){
             i = position+2
         }
@@ -58,28 +68,49 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         var count = 0
 
         if(admin == 0) {
-            if (idCurrent == positions.idUser) {
+            if (idCurrent == positions.userId) {
                 val exitPosition = ImageButton(context)
                 exitPosition.setImageResource(holder.src)
                 exitPosition.background = null
+
                 exitPosition.setOnClickListener{
-                    val deleted = ListPositions.removeAt(position)
-                    notifyDataSetChanged()
+                    val queue = Volley.newRequestQueue(context)
+                    var url6 = "http://90.156.229.190:8089/position/${positions.id}";
+                    val request6 = object : StringRequest(
+                        Request.Method.DELETE,
+                        url6,
+                        {
+                                result ->
+                            run {
+                                val deleted = ListPositions.removeAt(position)
+                                notifyDataSetChanged()
+                            }
+                        },
+                        {
+                                error ->
+                            run{
+
+                            }
+                        }
+                    ){
+                        override fun getBodyContentType(): String {
+                            return "application/json; charset=utf-8"
+                        }
+                    }
+                    queue.add(request6)
+
                 }
                 holder.layout.addView(exitPosition)
             }
         }
-        else{
-            val deletedBtn = holder.getDeleteButton(admin)
-            if (deletedBtn!=null){
-                deletedBtn.setOnClickListener{
-                    val deleted = ListPositions.removeAt(position)
-                    notifyDataSetChanged()
-                }
+        else {
+            holder.getDeleteButton(admin)?.setOnClickListener {
+                val deleted = ListPositions.removeAt(position)
+                notifyDataSetChanged()
             }
         }
-        holder.numberTextView.text="#"+i  // если тру то +i если фалс то +i+1
-        holder.userGroupTextView.text = positions.groupNumber
+        holder.numberTextView.text= "#${positions.number}"  // если тру то +i если фалс то +i+1
+        holder.userGroupTextView.text = positions.group
     }
 
     fun numberChange(isF: Boolean){
@@ -87,35 +118,19 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         notifyDataSetChanged()
     }
 
-    fun addNewPositions(items: MutableList<Positions>){
+    fun getLastNumber() : Int {
+        return ListPositions.get(ListPositions.lastIndex).number
+    }
+
+    fun addNewPositions(items: MutableList<Position>){
         items.forEach {
             ListPositions.add(it)
         }
         notifyDataSetChanged()
     }
 
-    fun addPosition(position: Positions) : Int{
-        var count = ListPositions.size
-        var last = 0
-        var Type = -1
-        for(i in count-1 downTo 0 step 1){
-            last++
-            if (ListPositions[i].idUser==position.idUser) {
-                Type = 0
-                break
-            }
-        }
-//        last = count - last
-        if (last > 20 || Type != 0){
-            ListPositions.add(position)
-            notifyDataSetChanged()
-            return 0
-        }
-        return 20-last
-    }
 
-
-    fun setItems(item: MutableList<Positions>, idUser : Long, isF : Boolean) {
+    fun setItems(item: MutableList<Position>, idUser : Long, isF : Boolean) {
         isFirst = isF
         ListPositions.clear()
         ListPositions.addAll(item)

@@ -76,7 +76,7 @@ class CreateTurnActivity : AppCompatActivity() {
                     vibrator.vibrate(200)
                 }
             } else {
-
+                saveButton.isClickable=false;
                 var jsonBody = JsonObject()
                 jsonBody.addProperty("name", nameTurn.text.toString())
                 jsonBody.addProperty("description", descTurn.text.toString())
@@ -123,12 +123,13 @@ class CreateTurnActivity : AppCompatActivity() {
                             editor.apply()
                             val intent1 = Intent(this, TurnActivity::class.java)
                             intent1.addCategory("CreateTurn")
+                            saveButton.isClickable=true;
                             startActivity(intent1)
                             finish()
                         }
                     },
                     {
-                            error -> Log.d("MYYY", error.message.toString())
+                            error -> saveButton.isClickable=true;
                     }
                 ){
                     override fun getBody(): ByteArray {

@@ -38,7 +38,7 @@ import com.google.gson.reflect.TypeToken
 class MainActivity : AppCompatActivity() {
     var loggedUserId = 1L
     var logged = 1L
-    val turnAdapter = TurnAdapter(this, loggedUserId)
+    val turnAdapter = TurnAdapter(this)
     override fun onResume() {
         super.onResume()
 
@@ -51,12 +51,13 @@ class MainActivity : AppCompatActivity() {
 
         val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
         val idMy = sPref.getLong("USER_ID",0)
+
         logged = idMy
+        turnAdapter.setId(logged);
 
              val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
             var url = "http://90.156.229.190:8089/user/$logged";
             val queue = Volley.newRequestQueue(applicationContext)
-// GET POST PUT DELETE
             val request = object : StringRequest(
                 Request.Method.GET,
                 url,
@@ -78,6 +79,11 @@ class MainActivity : AppCompatActivity() {
 
                             val groupText = findViewById<TextView>(R.id.groupMainTxt)
                             groupText.text = userInfo.group
+                            val sPref2 = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+                            val editor = sPref2.edit()
+                            editor.putString("USERNAME", userInfo.name)
+                            editor.putString("USERGROUP", userInfo.group)
+                            editor.apply()
                         };
                     }
                 },
@@ -116,7 +122,12 @@ class MainActivity : AppCompatActivity() {
 
         val bExit = findViewById<ImageView>(R.id.exitImageView)
         bExit.setOnClickListener {
-            val intent = Intent(this, StartActivity::class.java)
+
+            val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
+            val editor = sPref.edit()
+            editor.putLong("USER_ID", 0)
+            editor.apply()
+            val intent = Intent(this, EnterActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -130,6 +141,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         OrganizationBtn.setOnClickListener {
+            OrganizationBtn.isClickable=false;
+            MyTurnsBtn.isClickable=false;
+            InDostupBtn.isClickable=false;
+            StudiedBtn.isClickable=false;
             progress.visibility = View.VISIBLE
             TypeBtns = false
 //            AccessBtns = false
@@ -146,6 +161,10 @@ class MainActivity : AppCompatActivity() {
 
         }
         StudiedBtn.setOnClickListener {
+            OrganizationBtn.isClickable=false;
+            MyTurnsBtn.isClickable=false;
+            InDostupBtn.isClickable=false;
+            StudiedBtn.isClickable=false;
             progress.visibility = View.VISIBLE
 //            AccessBtns = true
             TypeBtns = true
@@ -161,6 +180,10 @@ class MainActivity : AppCompatActivity() {
 
         }
         MyTurnsBtn.setOnClickListener {
+            OrganizationBtn.isClickable=false;
+            MyTurnsBtn.isClickable=false;
+            InDostupBtn.isClickable=false;
+            StudiedBtn.isClickable=false;
             progress.visibility = View.VISIBLE
             AccessBtns = true
             checkFilter(AccessBtns,TypeBtns, turnAdapter, queue)
@@ -175,6 +198,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         InDostupBtn.setOnClickListener {
+            OrganizationBtn.isClickable=false;
+            MyTurnsBtn.isClickable=false;
+            InDostupBtn.isClickable=false;
+            StudiedBtn.isClickable=false;
             progress.visibility = View.VISIBLE
 //            TypeBtns = false
             AccessBtns = false
@@ -190,6 +217,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         SearchTurns.setOnKeyListener(object : View.OnKeyListener {
+
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     val s = SearchTurns.text.toString()
@@ -272,6 +300,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkFilter(AccessBtns : Boolean, TypeBtns : Boolean, turnAdapter: TurnAdapter, queue : RequestQueue){
+        val MyTurnsBtn = findViewById<Button>(R.id.bMy)
+        val InDostupBtn = findViewById<Button>(R.id.MainScreenInDostupBtn)
+        val StudiedBtn = findViewById<Button>(R.id.bStud)
+        val OrganizationBtn = findViewById<Button>(R.id.bOrg)
         val errorNotFound = findViewById<TextView>(R.id.turnNotFoundError)
         val RecView = findViewById<RecyclerView>(R.id.turnsRec)
         RecView.visibility = View.GONE
@@ -293,23 +325,6 @@ class MainActivity : AppCompatActivity() {
             "org"
         }
 
-//        if (AccessBtns && TypeBtns) {
-//            type = true;
-//            typeAccess="participates"
-//            typeTurn="edu"
-//        } else if (AccessBtns && !TypeBtns) {
-//            type = true;
-//            typeAccess="participates"
-//            typeTurn="org"
-//        } else if (!AccessBtns && TypeBtns) {
-//            type = false
-//            typeAccess="available"
-//            typeTurn="edu"
-//        } else if (!AccessBtns && !TypeBtns) {
-//            type = false
-//            typeAccess="available"
-//            typeTurn="org"
-//        }
         errorNotFound.visibility = View.GONE;
         val url2 = "http://90.156.229.190:8089/turn?userId=$logged&type=$typeTurn&access=$typeAccess";
         val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
@@ -319,6 +334,7 @@ class MainActivity : AppCompatActivity() {
             {
                     result ->
                 run {
+
                     val gson = Gson()
                     if (result.equals("[]")){
                         errorNotFound.visibility = View.VISIBLE;
@@ -338,10 +354,18 @@ class MainActivity : AppCompatActivity() {
                         errorNotFound.visibility = View.VISIBLE;
                     }
                     progress.visibility = View.GONE
+                    OrganizationBtn.isClickable=true;
+                    MyTurnsBtn.isClickable=true;
+                    InDostupBtn.isClickable=true;
+                    StudiedBtn.isClickable=true;
                 }
             },
             {
                     error -> run {
+                    OrganizationBtn.isClickable=true;
+                    MyTurnsBtn.isClickable=true;
+                    InDostupBtn.isClickable=true;
+                    StudiedBtn.isClickable=true;
                     Log.d("MYYY", "$error")
                     errorNotFound.visibility = View.VISIBLE;
                     progress.visibility = View.GONE

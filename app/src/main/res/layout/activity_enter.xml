@@ -74,11 +74,14 @@
             android:id="@+id/ErrorLoginEnter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/exobold"
             android:paddingLeft="20dp"
+            android:paddingTop="5dp"
             android:paddingRight="20dp"
             android:text="@string/loginError"
             android:textColor="@color/warningText"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -110,11 +113,14 @@
             android:id="@+id/errorPasswordEnter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/exobold"
             android:paddingLeft="20dp"
+            android:paddingTop="5dp"
             android:paddingRight="20dp"
             android:text="@string/passwordError"
             android:textColor="@color/warningText"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/textView18"

@@ -21,8 +21,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
 
-public class TurnAdapter(private val context: Context, private val id_user : Long) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
+public class TurnAdapter(private val context: Context) : RecyclerView.Adapter<TurnAdapter.turnHolder>() {
     private var turnList = ArrayList<Turn>();
+    private var id_user : Long = 0L;
     private var Type : Boolean = false;
 
     class turnHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -123,6 +124,10 @@ public class TurnAdapter(private val context: Context, private val id_user : Lon
             }
 
         }
+    }
+
+    fun setId(id : Long){
+        id_user = id;
     }
 
     fun addTurn(turn: Turn){

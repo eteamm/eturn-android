@@ -67,6 +67,7 @@
     <string name="hintToPositionTurn2">Ты еще не встал в очередь</string>
     <string name="inviteTurn">поделиться</string>
     <string name="deleteTurn">удалить очередь</string>
+    <string name="errorTurnNotExist">В очереди никого нет. Самое время занять первую позицию!</string>
 
     <string name="Enter">ВХОД</string>
     <string name="Authorization">Авторизация во время бета-теста приложения</string>
@@ -91,8 +92,9 @@
     <string name="ExitTxtTurn">Вы уверены, что хотите выйти из этой очереди?</string>
     <string name="warningCreate">Такой группы не существует.</string>
 
-    <string name="DurationTxt">Предположительная длительность %1$d позиций</string>
-    <string name="DurationTimeTxt">14 часов 32 минуты</string>
+    <string name="DurationTxt">%1$d позиций</string>
+    <string name="Duration2Txt">Предположительная длительность</string>
+    <string name="DurationTimeTxt">пока недоступна</string>
 
     <string name="yourTurntxt">ТВОЙ ЧЕРЕД</string>
     <string name="Turntxt">ВСЯ ОЧЕРЕДЬ</string>
@@ -102,16 +104,16 @@
     <string name="go">вперёд</string>
     <string name="etuid">ВЫЙТИ</string>
     <string name="nametxt">имя пользователя</string>
-    <string name="nametxtex">Иванов Иван Иванович</string>
+    <string name="nametxtex">. . .</string>
     <string name="createbuttonturn">СОЗДАТЬ ОЧЕРЕДЬ</string>
     <string name="turnInfoName">Название очереди</string>
-    <string name="turnInfoDesc">Подробнее: описание очереди</string>
+    <string name="turnInfoDesc">Описание отсутствует</string>
     <string name="turnInfoAuthor">Автор очереди</string>
     <string name="turnInfoSize">0 человек</string>
     <string name="turnInfoJoin">вступить</string>
-    <string name="turnInfoNumber">2391</string>
+    <string name="turnInfoNumber">. . .</string>
     <string name="positionName">Имя Фамилия Отчество</string>
-    <string name="positionNumber">2391</string>
+    <string name="positionNumber">. . .</string>
 
     <string name="RateTurn">Частота вступления в очередь</string>
     <string name="RateTurnHint">По умолчанию автоматически</string>
@@ -131,7 +133,7 @@
     <string name="two">2</string>
     <string name="three">3</string>
     <string name="status">студент</string>
-    <string name="groupNumber">2391</string>
+    <string name="groupNumber">. . .</string>
     <string name="nameTurn">Название очереди</string>
     <string name="allowgroupsTurn">Введите допустимые группы</string>
 

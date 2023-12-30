@@ -32,12 +32,11 @@ class EnterActivity : AppCompatActivity() {
         EnterButton.setOnClickListener(){
             errorLogin.visibility = View.GONE
             errorPassword.visibility = View.GONE
-            val string1 : String = loginText.text.toString()
-            val string2 : String = passwordText.text.toString()
+            val string1 : String = loginText.text.toString().trim();
+            val string2 : String = passwordText.text.toString().trim()
 
             var url = "http://90.156.229.190:8089/user/login?login=$string1&password=$string2"
             val queue = Volley.newRequestQueue(applicationContext)
-// GET POST PUT DELETE
             val request = object : StringRequest(
                 Request.Method.GET,
                 url,
