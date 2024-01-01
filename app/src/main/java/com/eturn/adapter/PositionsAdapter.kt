@@ -1,6 +1,7 @@
 package com.eturn.adapter
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,7 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
         fun getDeleteButton(status : Int) : ImageButton? {
             return if (status>0){
                 itemView.findViewById<ImageButton>(R.id.delBtn)
-            } else null
+            } else itemView.findViewById<ImageButton>(R.id.deleteOnePosition)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderPositions {
@@ -54,27 +55,18 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
     }
 
 
-    override fun onBindViewHolder(holder: HolderPositions, position: Int) {
+    override fun onBindViewHolder(holder: HolderPositions, @SuppressLint("RecyclerView") position: Int) {
 
         val positions : Position = ListPositions[position] //заполнение данных в эл списка
         holder.userNameTextView.text = positions.name
-        var i : Int
-        if(isFirst){
-            i = position+2
-        }
-        else{
-            i = position+1
-        }
-        var count = 0
+        val queue = Volley.newRequestQueue(context)
 
         if(admin == 0) {
             if (idCurrent == positions.userId) {
-                val exitPosition = ImageButton(context)
-                exitPosition.setImageResource(holder.src)
-                exitPosition.background = null
+                val exitPosition = holder.getDeleteButton(admin)
+                exitPosition?.visibility = View.VISIBLE
 
-                exitPosition.setOnClickListener{
-                    val queue = Volley.newRequestQueue(context)
+                exitPosition?.setOnClickListener{
                     var url6 = "http://90.156.229.190:8089/position/${positions.id}";
                     val request6 = object : StringRequest(
                         Request.Method.DELETE,
@@ -100,13 +92,33 @@ public class PositionsAdapter(private val context: Context, val admin : Int) : R
                     queue.add(request6)
 
                 }
-                holder.layout.addView(exitPosition)
             }
         }
         else {
             holder.getDeleteButton(admin)?.setOnClickListener {
-                val deleted = ListPositions.removeAt(position)
-                notifyDataSetChanged()
+                var url6 = "http://90.156.229.190:8089/position/${positions.id}";
+                val request6 = object : StringRequest(
+                    Request.Method.DELETE,
+                    url6,
+                    {
+                            result ->
+                        run {
+                            val deleted = ListPositions.removeAt(position)
+                            notifyDataSetChanged()
+                        }
+                    },
+                    {
+                            error ->
+                        run{
+
+                        }
+                    }
+                ){
+                    override fun getBodyContentType(): String {
+                        return "application/json; charset=utf-8"
+                    }
+                }
+                queue.add(request6)
             }
         }
         holder.numberTextView.text= "#${positions.number}"  // если тру то +i если фалс то +i+1

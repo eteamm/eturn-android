@@ -13,7 +13,8 @@
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/LinearTurnParent"
@@ -353,7 +354,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingTop="15dp"
-                    android:paddingBottom="10dp">
+                    android:paddingBottom="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/yourTurnTxt"
@@ -372,9 +374,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     app:cardBackgroundColor="@color/colorBlock"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -461,7 +465,8 @@
                                 android:paddingStart="30dp"
                                 android:paddingTop="5dp"
                                 android:paddingBottom="5dp"
-                                android:visibility="visible">
+                                android:visibility="visible"
+                                tools:visibility="gone">
 
                                 <TextView
                                     android:id="@+id/timeDuration2"
@@ -481,7 +486,7 @@
                                     android:text="@string/timeofpeople1"
                                     android:textColor="@color/colorMain"
                                     android:textSize="14sp"
-                                    android:visibility="invisible" />
+                                    android:visibility="gone" />
                             </LinearLayout>
 
                             <Button
@@ -492,9 +497,12 @@
                                 android:layout_marginBottom="10dp"
                                 android:text="@string/curjoinBtn"
                                 android:textColor="@color/colorMain"
+                                android:textColorHighlight="@color/background"
+                                android:textColorLink="@color/background"
                                 android:textSize="16sp"
                                 android:visibility="gone"
-                                app:cornerRadius="10dp" />
+                                app:cornerRadius="10dp"
+                                tools:visibility="visible" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -505,7 +513,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingTop="10dp"
+                    android:paddingTop="15dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -516,7 +524,8 @@
                         android:gravity="center"
                         android:text="@string/Turntxt"
                         android:textColor="@color/colorMain"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:visibility="gone" />
                 </LinearLayout>
 
                 <RelativeLayout

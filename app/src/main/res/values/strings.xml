@@ -52,9 +52,9 @@
     <string name="mainTextTurn">Очередь</string>
     <string name="justId">#1</string>
     <string name="mainTextTurnDesc">основная информация</string>
-    <string name="nameTurnTurn">Зачетная неделя</string>
-    <string name="nameTeacherTurn">Имя преподавателя</string>
-    <string name="numberPeopleTurn">132</string>
+    <string name="nameTurnTurn">. . .</string>
+    <string name="nameTeacherTurn">. . .</string>
+    <string name="numberPeopleTurn">...</string>
     <string name="peopleBoxTurn">человека</string>
     <string name="descriptionBoxTurn">Описание отстутствует.</string>
     <string name="descriptionBoxTurnCurrent">Подробнее: %1$s</string>
@@ -88,7 +88,7 @@
     <string name="groupsCreate">допустимые группы</string>
     <string name="createBtnCreate">создать</string>
     <string name="cancelBtnCreate">отмена</string>
-    <string name="warningTxtTurn">Вы уже вставали в очередь недавно. Через %1$d позиций вы сможете сделать это снова!</string>
+    <string name="warningTxtTurn">Вы уже вставали в очередь недавно. Через %1$d %2$s вы сможете сделать это снова!</string>
     <string name="ExitTxtTurn">Вы уверены, что хотите выйти из этой очереди?</string>
     <string name="warningCreate">Такой группы не существует.</string>
 
@@ -125,7 +125,7 @@
     <string name="curjoinBtn">войти</string>
 
 
-    <string name="numberofpeople1">Перед тобой %1$d человек</string>
+    <string name="numberofpeople1">Перед тобой %1$d %2$s</string>
 
     <string name="timeofpeople1">Осталось примерно 35 минут</string>
 

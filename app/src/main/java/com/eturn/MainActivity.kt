@@ -79,11 +79,6 @@ class MainActivity : AppCompatActivity() {
 
                             val groupText = findViewById<TextView>(R.id.groupMainTxt)
                             groupText.text = userInfo.group
-                            val sPref2 = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
-                            val editor = sPref2.edit()
-                            editor.putString("USERNAME", userInfo.name)
-                            editor.putString("USERGROUP", userInfo.group)
-                            editor.apply()
                         };
                     }
                 },

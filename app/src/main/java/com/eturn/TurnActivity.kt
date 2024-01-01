@@ -14,6 +14,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,18 @@ class TurnActivity : AppCompatActivity() {
 
         val Pencil: ImageView = findViewById(R.id.editTurnImg)
 
+        val positionsString: Array<String> = arrayOf(
+            "позицию",
+            "позиции",
+            "позиции",
+            "позиции",
+            "позиций",
+            "позиций",
+            "позиций",
+            "позиций",
+            "позиций",
+            "позиций"
+        )
 
         val People: Array<String> = arrayOf(
             "человек",
@@ -68,8 +81,6 @@ class TurnActivity : AppCompatActivity() {
         val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
         val idMy = sPref.getLong("USER_ID",0)
         val idTurnThis = sPref.getLong("TURN_ID",0)
-        val userName = sPref.getString("USERNAME", "Ошибка вывода информации")
-        val userGroup = sPref.getString("USERGROUP", "Ошибка");
 
         var loggedUserId = idMy
         var creatorUserId = 0L
@@ -110,6 +121,9 @@ class TurnActivity : AppCompatActivity() {
                             val description = resources.getString(R.string.descriptionBoxTurnCurrent,turnInfo.description)
                             myTurnDescription.text = description
                         }
+                        else{
+                            myTurnDescription.visibility = View.GONE
+                        }
                         myTurnNumberOfPeople.text = turnInfo.countUsers.toString()
                         myTurnPeopleTextView.text = People[turnInfo.countUsers % 10]
                         creatorUserId = turnInfo.userId
@@ -139,6 +153,10 @@ class TurnActivity : AppCompatActivity() {
         }
         queue.add(request)
 
+        recyclerView.setOnClickListener{
+            Toast.makeText(this, "1", Toast.LENGTH_LONG).show()
+        }
+
         val errorTurn : TextView = findViewById(R.id.errorTurnMessage)
         val progressTurn : ProgressBar = findViewById(R.id.progressTurn)
 //        errorTurn.visibility = View.VISIBLE
@@ -157,16 +175,22 @@ class TurnActivity : AppCompatActivity() {
                         exist=false
                         errorTurn.visibility = View.VISIBLE
                         progressTurn.visibility = View.GONE
+                        val turnAll : TextView = findViewById(R.id.TurnAll)
+                        turnAll.visibility = View.GONE
                     }
                     if (exist){
                         val gson = Gson()
                         val type = object : TypeToken<MutableList<Position>>(){}.type
                         val positions : MutableList<Position> = gson?.fromJson(result, type)!!;
                         if (positions == null){
+                            val turnAll : TextView = findViewById(R.id.TurnAll)
+                            turnAll.visibility = View.GONE
                             errorTurn.visibility = View.VISIBLE
                             progressTurn.visibility = View.GONE
                         }
                         else{
+                            val turnAll : TextView = findViewById(R.id.TurnAll)
+                            turnAll.visibility = View.VISIBLE
                             progressTurn.visibility = View.GONE
                             val b : Boolean = positions[0].userId==loggedUserId
                             if (b){
@@ -212,6 +236,10 @@ class TurnActivity : AppCompatActivity() {
         val WarningTxt: CardView = findViewById(R.id.WarningJoinTxt)
         val ShareBtn1: Button = findViewById(R.id.ShareBtn)
 
+        ButtonToPeople.setOnClickListener(){
+            Toast.makeText(applicationContext, "Функция пока недоступна", Toast.LENGTH_LONG).show()
+        }
+
 
         var b = true
          // добавлояем bool переменную
@@ -235,11 +263,10 @@ class TurnActivity : AppCompatActivity() {
                 {
                         result ->
                     run {
-                        val idCreatedPosition = result.toLong()
-                        var countToStay = 0L;
-                        if (idCreatedPosition<=0){
-                            countToStay = idCreatedPosition*(-1);
-                            textWarn.text = resources.getString(R.string.warningTxtTurn, countToStay)
+                        val gson = Gson()
+                        val positionFirst = gson?.fromJson(result, PositionFirst::class.java);
+                        if (positionFirst?.name==null){
+                            textWarn.text = resources.getString(R.string.warningTxtTurn, positionFirst?.difference, positionsString[positionFirst?.difference!! % 10])
                             WarningTxt.visibility = View.VISIBLE
                             Handler().postDelayed({
                                 WarningTxt.startAnimation(outAnimation)
@@ -250,87 +277,37 @@ class TurnActivity : AppCompatActivity() {
                             }, 3000)
                         }
                         else{
-                            if (userName!=null && userGroup!=null){
-                                if (positionsAdapter.itemCount==0){
-                                    firstExist = true
-                                    val positionFirst = PositionFirst(idCreatedPosition,userName,userGroup,1, false, loggedUserId, 0)
-
-                                    firstPositionName.text = positionFirst.name
-                                    firstPositionGroup.text = positionFirst.group
-                                    firstPositionIndex.text="#${positionFirst.number}"
-                                    firstExist = true
-                                    firstPositionId = result.toLong()
+                            if (positionFirst.difference!=-1){
+                                firstExist = true
+                                firstPositionName.text = positionFirst.name
+                                firstPositionGroup.text = positionFirst.group
+                                firstPositionIndex.text="#${positionFirst.number}"
+                                if (positionFirst.difference==0){
                                     infoAboutFirstPosition.visibility=View.GONE
                                     startButton.text = resources.getString(R.string.Enter2)
                                     startButton.visibility=View.VISIBLE
                                     positionsAdapter.numberChange(true)
-                                    errorTurn.visibility = View.VISIBLE
-
                                 }
                                 else{
-                                    if (positionsAdapter.itemCount<20){
-                                        val position = Position(idCreatedPosition,userName,userGroup,positionsAdapter.getLastNumber()+1, false, loggedUserId)
-                                        positionsAdapter.addPosition(position)
-                                    }
-                                    var url6 = "http://90.156.229.190:8089/position/first?turnId=$idTurnThis&userId=$loggedUserId";
-                                    val request6 = object : StringRequest(
-                                        Request.Method.GET,
-                                        url6,
-                                        {
-                                                result ->
-                                            run {
-                                                val gson = Gson()
-                                                val positionFirst = gson?.fromJson(result, PositionFirst::class.java);
-                                                if (positionFirst==null){
-                                                    firstPositionBlock.visibility = View.GONE
-                                                    firstPositionBlockText.visibility = View.GONE
-                                                }
-                                                else {
-                                                    firstPositionBlock.visibility = View.VISIBLE
-                                                    firstPositionBlockText.visibility = View.VISIBLE
-                                                    firstPositionName.text = positionFirst.name
-                                                    firstPositionGroup.text = positionFirst.group
-                                                    firstPositionIndex.text="#${positionFirst.number}"
-                                                    if (positionFirst.difference==0){
-                                                        firstExist = true
-                                                        firstPositionId = positionFirst.id
-                                                        infoAboutFirstPosition.visibility=View.GONE
-                                                        started = positionFirst.start
-                                                        if (positionFirst.start){
-                                                            startButton.text = resources.getString(R.string.exitBtnTextTurn)
-                                                        }
-                                                        else{
-                                                            startButton.text = resources.getString(R.string.Enter2)
-                                                        }
-                                                        startButton.visibility=View.VISIBLE
-                                                        positionsAdapter.numberChange(true)
-                                                    }
-                                                    else{
-                                                        positionsAdapter.numberChange(false)
-                                                        startButton.visibility=View.GONE
-                                                        infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference)
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                                error ->
-                                            run{
-                                                firstPositionBlock.visibility = View.GONE
-                                                firstPositionBlockText.visibility = View.GONE
-                                            }
-                                        }
-                                    ){
-                                        override fun getBodyContentType(): String {
-                                            return "application/json; charset=utf-8"
-                                        }
-                                    }
-                                    queue.add(request6)
+                                    positionsAdapter.numberChange(false)
+                                    startButton.visibility=View.GONE
+                                    infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference, People[positionFirst.difference%10])
+                                }
+                                firstPositionId = positionFirst.id
+                                errorTurn.visibility = View.VISIBLE
+                                firstPositionBlock.visibility = View.VISIBLE
+                                firstPositionBlockText.visibility = View.VISIBLE
+                                if (positionsAdapter.itemCount<20 && positionsAdapter.itemCount != 0){
+                                    val position = Position(positionFirst.id,positionFirst.name,positionFirst.group,positionFirst.number, false, loggedUserId)
+                                    positionsAdapter.addPosition(position)
                                 }
                             }
-                            firstPositionBlock.visibility = View.VISIBLE
-                            firstPositionBlockText.visibility = View.VISIBLE
-
+                            else{
+                                if (positionsAdapter.itemCount<20 && positionsAdapter.itemCount != 0){
+                                    val position = Position(positionFirst.id,positionFirst.name,positionFirst.group,positionFirst.number, false, loggedUserId)
+                                    positionsAdapter.addPosition(position)
+                                }
+                            }
                         }
                     }
                 },
@@ -345,38 +322,12 @@ class TurnActivity : AppCompatActivity() {
                 }
             }
             queue.add(request5)
-
-
-//            JoinBtn.isClickable = false
-//            val positionNew = Position(
-//                9,
-//                "Иванов Юрий Владимирович",
-//                "2391",
-//                loggedUserId
-//            ) // idUser для каждого пользователя свой
-//            var temp = positionsAdapter.addPosition(positionNew)
-//            if (temp != 0) {
-//                temp++
-//                val str = String.format(getString(R.string.warningTxtTurn), temp)
-//                val textWarn = findViewById<TextView>(R.id.textWarnTurn)
-//                textWarn.text=str
-//                WarningTxt.visibility = View.VISIBLE
-//
-//                Handler().postDelayed({
-//                    WarningTxt.startAnimation(outAnimation)
-//                    Handler().postDelayed({
-//                        WarningTxt.visibility = View.GONE
-//                        JoinBtn.isClickable = true
-//                    }, 2000)
-//                }, 3000)
-//            }
-
         }
-        ButtonToPeople.setOnClickListener() {
-            val intent = Intent(this, MembersActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        ButtonToPeople.setOnClickListener() {
+//            val intent = Intent(this, MembersActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
         Pencil.setOnClickListener {
             val intent2 = Intent(this, EditTurnActivity::class.java)
@@ -414,6 +365,10 @@ class TurnActivity : AppCompatActivity() {
                         firstPositionBlockText.visibility = View.GONE
                     }
                     else {
+                        if (positionsAdapter.itemCount==0){
+                            val turnAll : TextView = findViewById(R.id.TurnAll)
+                            turnAll.visibility = View.GONE
+                        }
                         firstPositionBlock.visibility = View.VISIBLE
                         firstPositionBlockText.visibility = View.VISIBLE
                         firstPositionName.text = positionFirst.name
@@ -436,7 +391,7 @@ class TurnActivity : AppCompatActivity() {
                         else{
                             positionsAdapter.numberChange(false)
                             startButton.visibility=View.GONE
-                            infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference)
+                            infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference, People[positionFirst.difference%10])
                         }
                     }
                 }
@@ -454,6 +409,8 @@ class TurnActivity : AppCompatActivity() {
             }
         }
         queue.add(request3)
+
+
 
         startButton.setOnClickListener(){
             if (firstPositionId==0L){
@@ -501,7 +458,7 @@ class TurnActivity : AppCompatActivity() {
                                             }
                                             else{
                                                 startButton.visibility=View.GONE
-                                                infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference)
+                                                infoAboutCountPositionsAtFirst.text = resources.getString(R.string.numberofpeople1, positionFirst.difference, People[positionFirst.difference%10])
                                             }
                                         }
                                     }
@@ -540,39 +497,6 @@ class TurnActivity : AppCompatActivity() {
             }
             queue.add(request3)
         }
-
-
-
-//        nameTurn.text = yourPos?.name
-//        myPosNumber2.text = yourPos?.groupNumber
-//        var numberpeopleafter : TextView = findViewById(R.id.timeDuration2)
-//        val timeDuration : TextView = findViewById(R.id.timeDuration3)
-//
-//        if(yourPos?.isFirst == true){
-//            positionsList.removeAt(0)
-//            positionsAdapter.setItems(positionsList, loggedUserId, yourPos?.isFirst == true)
-//            if(yourPos?.isGo == false){
-//                curjoinBtn.visibility = View.VISIBLE
-//                numberpeopleafter.visibility = View.GONE
-//                timeDuration.visibility = View.GONE
-//                curjoinBtn.setOnClickListener(){
-//                    if(!ispressed){
-//                        curjoinBtn.text = "выйти"
-//                        curjoinBtn.setTextColor(Color.parseColor("#F4694D"))
-//                        ispressed = true
-//                    }
-//                    else {
-//                        curPeoplebox.visibility = View.GONE
-//                        yourTurn.visibility = View.GONE
-//                        positionsAdapter.numberChange(false)
-//                    }
-//                }
-//            }
-//        }
-//        else{
-//            val numbr = String.format(getString(R.string.numberofpeople1), yourPos?.number)
-//            numberpeopleafter.text = numbr
-//        }
 
         val scrollview = findViewById<ScrollView>(R.id.scrollview)
         val relLayout = findViewById<RelativeLayout>(R.id.relLayout)
