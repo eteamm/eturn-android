@@ -28,22 +28,11 @@ import com.eturn.data.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-//import okhttp3.Call
-//import okhttp3.Callback
-//import okhttp3.OkHttpClient
-//import okhttp3.Request
-//import okhttp3.Response
-
-
 class MainActivity : AppCompatActivity() {
     var loggedUserId = 1L
     var logged = 1L
+    var group = "0"
     val turnAdapter = TurnAdapter(this)
-    override fun onResume() {
-        super.onResume()
-
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,47 +44,48 @@ class MainActivity : AppCompatActivity() {
         logged = idMy
         turnAdapter.setId(logged);
 
-             val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
-            var url = "http://90.156.229.190:8089/user/$logged";
-            val queue = Volley.newRequestQueue(applicationContext)
-            val request = object : StringRequest(
-                Request.Method.GET,
-                url,
-                {
-                    result ->
-                    run {
-                        val gson = Gson()
+        val progress = findViewById<ProgressBar>(R.id.progressBarTurn)
+        var url = "http://90.156.229.190:8089/user/$logged";
+        val queue = Volley.newRequestQueue(applicationContext)
+        val request = object : StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                result ->
+                run {
+                    val gson = Gson()
 //                        val c = result.toByteArray(Charsets.ISO_8859_1)
 //                        val user = c.toString(Charsets.UTF_8)
-                        val userInfo = gson?.fromJson(result, User::class.java);
-                        if (userInfo != null) {
-                            loggedUserId = userInfo.id
-                            val nameText = findViewById<TextView>(R.id.userNameMainTxt)
+                    val userInfo = gson?.fromJson(result, User::class.java);
+                    if (userInfo != null) {
+                        loggedUserId = userInfo.id
+                        val nameText = findViewById<TextView>(R.id.userNameMainTxt)
 //                            nameText.text = result;
-                            nameText.text = userInfo.name;
+                        nameText.text = userInfo.name;
 
-                            val roleText = findViewById<TextView>(R.id.statusMainTxt)
-                            roleText.text = userInfo.role
+                        val roleText = findViewById<TextView>(R.id.statusMainTxt)
+                        roleText.text = userInfo.role
 
-                            val groupText = findViewById<TextView>(R.id.groupMainTxt)
-                            groupText.text = userInfo.group
-                        };
-                    }
-                },
-                {
-                    error -> Log.d("MYYY", "$error")
+                        val groupText = findViewById<TextView>(R.id.groupMainTxt)
+                        groupText.text = userInfo.group
+                        group = userInfo.group
+                    };
                 }
-            ){
-                override fun getBodyContentType(): String {
-                    return "application/json; charset=utf-8"
-                }
+            },
+            {
+                error -> Log.d("MYYY", "$error")
+            }
+        ){
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
 //                override fun getParams(): MutableMap<String, String>? {
 //                    val params = HashMap<String, String>()
 //                    params.put("Content-type","application/json; charset=utf-8")
 //                    return params
 //                }
-            }
-            queue.add(request)
+        }
+        queue.add(request)
 
         var AccessBtns = true
         var TypeBtns = true
@@ -310,7 +300,7 @@ class MainActivity : AppCompatActivity() {
             typeAccessList=true
         }
         else{
-            typeAccess="available"
+            typeAccess="available&numberGroup=$group"
             typeAccessList=false
         }
 
