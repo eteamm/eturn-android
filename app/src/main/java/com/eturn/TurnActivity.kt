@@ -104,7 +104,7 @@ class TurnActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = false
         var positionsAdapter = PositionsAdapter(this, 0)
-        var url = "http://90.156.229.190:8089/turn/$idTurnThis";
+        var url = "http://90.156.229.190:8089/turn/$idTurnThis"
         val queue = Volley.newRequestQueue(applicationContext)
         val request = object : StringRequest(
             Request.Method.GET,

@@ -138,12 +138,12 @@
     <string name="allowgroupsTurn">Введите допустимые группы</string>
 
     <string-array name="ParametersforTurn">
-<!--        <item>Для всех студентов</item>-->
-<!--        <item>Для сотрудников</item>-->
-<!--        <item>Для преподавателей</item>-->
-<!--        <item>Для людей не из университета</item>-->
+        <!--        <item>Для всех студентов</item>-->
+        <!--        <item>Для сотрудников</item>-->
+        <!--        <item>Для преподавателей</item>-->
+        <!--        <item>Для людей не из университета</item>-->
         <item>Для допустимых групп</item>
-<!--        <item>По ссылке-приглашению</item>-->
+        <!--        <item>По ссылке-приглашению</item>-->
     </string-array>
 
     <string name="memberName">Ненарокова Маргарита Олеговна</string>
@@ -156,4 +156,5 @@
     <string name="warningText2">Вы удалили группу или группы из списка допустимых. Все участники, состоящие в этих группах, будут удалены из очереди.</string>
     <string name="warningText3">Список пуст.</string>
     <string name="noTurn">Таких очередей тут нет :(</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

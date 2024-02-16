@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentTop, FragmentTopMainScreen()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentMiddle, FragmentMiddleMainScreen()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentBottom, FragmentBottomMainScreen()).commit()
+
+
 
         val sPref = getSharedPreferences("UserAndTurnInfo", MODE_PRIVATE)
         val idMy = sPref.getLong("USER_ID",0)
